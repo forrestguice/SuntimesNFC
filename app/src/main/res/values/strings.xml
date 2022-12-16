@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Suntimes Alarms NFC</string>
+    <string name="app_name">Suntimes NFC Alarms</string>
     <string name="app_desc">An NFC Addon for Suntimes Alarms.</string>
     <string name="app_legal1"><![CDATA[
         <b>Source Code:</b><br />
@@ -29,9 +29,21 @@
     <br/>The tag may be reassigned by scanning a different tag at least 5 times.
     ]]></string>
 
-
     <string name="dismiss_challenge_title">Scan NFC Tag</string>
+
+    <string name="action_scantag">Scan Tag</string>
+    <string name="summary_scantag">Place the device near NFC Tag.</string>
+
+    <string name="message_saved_tag">Tag Assigned</string>
+    <string name="message_right_tag">Alarm Dismissed</string>
     <string name="message_wrong_tag">Wrong tag!</string>
+    <string name="message_not_supported">Not Supported</string>
+    <string name="summary_not_supported">Failed to detect NFC support.</string>
+
+    <string name="action_dismiss">Dismiss</string>
+    <string name="action_snooze">Snooze</string>
+    <string name="action_help">Help</string>
+    <string name="action_about">About</string>
 
 
 </resources>
