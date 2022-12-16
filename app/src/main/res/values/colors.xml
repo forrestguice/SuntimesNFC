@@ -1,5 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- night overrideable -->
+    <color name="tag_true">@color/tag_true_light</color>
+    <color name="tag_false">@color/tag_false_light</color>
+    <color name="tag_scan_start">@color/tag_scan_start_light</color>
+    <color name="tag_scan_end">@color/tag_scan_end_light</color>
+
+    <!-- light colors -->
+    <color name="tag_scan_start_light">#FF018786</color>
+    <color name="tag_scan_end_light">#FF6200EE</color>
+    <color name="tag_true_light">#FF018786</color>
+    <color name="tag_false_light">#FF6200EE</color>
+
+    <!-- dark colors -->
+    <color name="tag_scan_start_dark">#FF03DAC5</color>
+    <color name="tag_scan_end_dark">#FFBB86FC</color>
+    <color name="tag_true_dark">#FF03DAC5</color>
+    <color name="tag_false_dark">#FFBB86FC</color>
+
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>

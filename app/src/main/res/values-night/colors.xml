@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="tag_true">@color/tag_true_dark</color>
+    <color name="tag_false">@color/tag_false_dark</color>
+    <color name="tag_scan_start">@color/tag_scan_start_dark</color>
+    <color name="tag_scan_end">@color/tag_scan_end_dark</color>
+</resources>
