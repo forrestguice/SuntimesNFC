@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/action_help"
+        android:title="@string/action_help"
+        android:icon="?attr/icActionHelp" />
+
+    <item android:id="@+id/action_about"
+        android:title="@string/action_about"
+        android:icon="?attr/icActionAbout" />
+
+</menu>

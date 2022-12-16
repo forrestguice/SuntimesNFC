@@ -32,7 +32,7 @@ public class AddonSettings
     public static final String PREF_KEY_TAG_DISMISS = "dismisstag";
 
     public static final String PREF_KEY_WRONG_TAG_LIMIT = "wrongtaglimit";
-    public static final int PREF_DEF_WRONG_TAG_LIMIT = 5;
+    public static final int PREF_DEF_WRONG_TAG_LIMIT = 4;
 
 
     public static int loadPrefWrongTagLimit(Context context)

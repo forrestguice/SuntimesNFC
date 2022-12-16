@@ -18,6 +18,9 @@
 
 package com.forrestguice.suntimes.alarmnfc;
 
+import android.animation.TimeInterpolator;
+import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.ContentUris;
 import android.content.Context;
@@ -25,18 +28,28 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
 import android.nfc.NfcAdapter;
+import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.graphics.drawable.ArgbEvaluator;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Toast;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.forrestguice.suntimes.addon.LocaleHelper;
 import com.forrestguice.suntimes.addon.SuntimesInfo;
+import com.forrestguice.suntimes.addon.ui.Messages;
 import com.forrestguice.suntimes.alarm.AlarmHelper;
 
 import java.util.Arrays;
@@ -44,15 +57,24 @@ import java.util.Arrays;
 public class MainActivity extends AppCompatActivity
 {
     public static final String TAG = "AlarmNFC";
+
     public static final String DIALOG_HELP = "helpDialog";
     public static final String DIALOG_ABOUT = "aboutDialog";
 
-    private NfcAdapter nfcAdapter;
-    private long alarmID = -1;
-    private byte[] nfcTagID = null;
-    private int wrongTagCount = 0;
+    public static final int REQUEST_NFC_DISPATCH = 100;
 
     protected SuntimesInfo suntimesInfo = null;
+
+    private Vibrator vibrate;
+    private NfcAdapter nfcAdapter;
+
+    private Long alarmID = null;
+    private byte[] nfcTagID = null;
+    private int wrongTagCount = 0;
+    private boolean scan_locked = false;
+
+    private ImageView icon;
+    private TextView text_title, text_summary;
 
     @Override
     protected void attachBaseContext(Context context)
@@ -65,17 +87,29 @@ public class MainActivity extends AppCompatActivity
     public void onSaveInstanceState( Bundle outState )
     {
         super.onSaveInstanceState(outState);
+        if (alarmID != null) {
+            outState.putLong("alarmID", alarmID);
+        }
         outState.putInt("wrongTagCount", wrongTagCount);
-        outState.putLong("alarmID", alarmID);
         outState.putByteArray("nfcTagID", nfcTagID);
     }
     @Override
     public void onRestoreInstanceState(@NonNull Bundle savedState)
     {
         super.onRestoreInstanceState(savedState);
+        long id = savedState.getLong("alarmID", -1);
+        alarmID = (id != -1 ? id : null);
         wrongTagCount = savedState.getInt("wrongTagCount", 0);
-        alarmID = savedState.getLong("alarmID", alarmID);
         nfcTagID = savedState.getByteArray("nfcTagID");
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        Messages.forceActionBarIcons(menu);
+        return true;
     }
 
     @Override
@@ -97,57 +131,231 @@ public class MainActivity extends AppCompatActivity
             }
         }
 
+        vibrate = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         nfcTagID = AddonSettings.loadPrefDismissTag(this);
+
         initViews(this);
     }
 
     protected void initViews(Context context)
     {
-        FloatingActionButton helpButton = (FloatingActionButton) findViewById(R.id.helpButton);
-        if (helpButton != null)
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null)
         {
-            helpButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    showHelp();
-                }
-            });
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            if (alarmID == null) {
+                actionBar.setHomeAsUpIndicator(R.mipmap.ic_launcher);
+            }
+        }
+
+        icon = (ImageView) findViewById(R.id.icon);
+        if (icon != null)
+        {
+            icon.setColorFilter(null);
+            animateColors();
+        }
+
+        text_title = (TextView) findViewById(R.id.text_title);
+        if (text_title != null) {
+            text_title.setText(context.getString(nfcSupported() ? R.string.action_scantag : R.string.message_not_supported));
+        }
+
+        text_summary = (TextView) findViewById(R.id.text_summary);
+        if (text_summary != null) {
+            text_summary.setText(context.getString(nfcSupported() ? R.string.summary_scantag : R.string.summary_not_supported));
+        }
+
+        FloatingActionButton dismissButton = (FloatingActionButton) findViewById(R.id.dismissButton);
+        if (dismissButton != null)
+        {
+            dismissButton.setOnClickListener(onDismissClicked);
+            dismissButton.setEnabled(nfcSupported());
+            if (nfcSupported()) {
+                dismissButton.hide();
+            } else dismissButton.show();
+        }
+
+        FloatingActionButton snoozeButton = (FloatingActionButton) findViewById(R.id.snoozeButton);
+        if (snoozeButton != null) {
+            snoozeButton.setOnClickListener(onSnoozeClicked);
+            snoozeButton.hide();  // TODO
+        }
+
+        FloatingActionButton helpButton = (FloatingActionButton) findViewById(R.id.helpButton);
+        if (helpButton != null) {
+            helpButton.setOnClickListener(onHelpClicked);
         }
 
         FloatingActionButton aboutButton = (FloatingActionButton) findViewById(R.id.aboutButton);
-        if (aboutButton != null)
-        {
-            aboutButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    showAbout();
-                }
-            });
+        if (aboutButton != null) {
+            aboutButton.setOnClickListener(onAboutClicked);
         }
+    }
+
+    private final View.OnClickListener onHelpClicked = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            showHelp();
+        }
+    };
+    private final View.OnClickListener onAboutClicked = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            showAbout();
+        }
+    };
+    private final View.OnClickListener onSnoozeClicked = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            snoozeAlarm();
+        }
+    };
+    private final View.OnClickListener onDismissClicked = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            dismissAlarm();
+        }
+    };
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case R.id.action_help:
+                showHelp();
+                return true;
+
+            case R.id.action_about:
+                showAbout();
+                return true;
+
+            case android.R.id.home:
+                if (alarmID != null) {
+                    cancelDismiss();
+                }
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    protected void cancelDismiss()
+    {
+        setResult(RESULT_CANCELED, new Intent().setData(AlarmHelper.getAlarmUri(alarmID)));
+        finish();
+    }
+
+    protected void snoozeAlarm()
+    {
+        setResult(RESULT_CANCELED, new Intent().setData(AlarmHelper.getAlarmUri(alarmID)).setAction(AlarmHelper.ACTION_SNOOZE));
+        finish();
+    }
+
+    protected void dismissAlarm()
+    {
+        setResult(RESULT_OK, alarmID != null ? new Intent().setData(AlarmHelper.getAlarmUri(alarmID)).putExtra(Intent.EXTRA_RETURN_RESULT, RESULT_OK) : null);
+        Log.d("DEBUG", "dismissAlarm: setResult: RESULT_OK: " + alarmID);
+        finish();
     }
 
     @Override
     protected void onResume()
     {
         super.onResume();
-        if (nfcAdapter != null)
-        {
-            int requestCode = 0;
-            Intent intent = new Intent(this, this.getClass());
-            intent.addFlags(Intent.FLAG_RECEIVER_REPLACE_PENDING | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            PendingIntent pendingIntent = PendingIntent.getActivity(this, requestCode, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-            nfcAdapter.enableForegroundDispatch(this, pendingIntent, new IntentFilter[] {}, null);
-        }
+        checkVersion();
+        registerNfcDispatch();
     }
 
     @Override
     protected void onPause()
     {
+        disableNfcDispatch();
+        super.onPause();
+    }
+
+    protected boolean nfcSupported() {
+        return (nfcAdapter != null);
+    }
+
+    protected void registerNfcDispatch()
+    {
+        if (nfcAdapter != null)
+        {
+            Intent intent = new Intent(this, this.getClass());
+            intent.addFlags(Intent.FLAG_RECEIVER_REPLACE_PENDING | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            PendingIntent pendingIntent = PendingIntent.getActivity(this, REQUEST_NFC_DISPATCH, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+            nfcAdapter.enableForegroundDispatch(this, pendingIntent, new IntentFilter[] {}, null);
+        }
+    }
+
+    protected void disableNfcDispatch()
+    {
         if (nfcAdapter != null) {
             nfcAdapter.disableForegroundDispatch(this);
         }
-        super.onPause();
+    }
+
+    protected void onTagScanned(byte[] tagID)
+    {
+        scan_locked = true;
+        stopAnimateColors();
+        icon.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.tag_true));
+
+        if (alarmID != null) {
+            text_title.setText(getString(R.string.message_right_tag));
+            text_summary.setVisibility(View.INVISIBLE);
+
+        } else {
+            AddonSettings.savePrefDismissTag(MainActivity.this, tagID);
+            text_title.setText(getString(R.string.message_saved_tag));
+            text_summary.setText(Arrays.toString(tagID));
+        }
+
+        int animationDelay = getResources().getInteger(alarmID != null ? R.integer.right_tag_delay_ms : R.integer.save_tag_delay_ms);
+        icon.postDelayed(new Runnable() {
+            @Override
+            public void run()
+            {
+                if (alarmID != null) {
+                    dismissAlarm();
+
+                } else {
+                    scan_locked = false;
+                    text_title.setText(getString(R.string.action_scantag));
+                    text_summary.setText(getString(R.string.summary_scantag));
+                    icon.setColorFilter(null);
+                    animateColors();
+                }
+            }
+        }, animationDelay);
+    }
+
+    protected void onWrongTag(byte[] tagID)
+    {
+        scan_locked = true;
+        wrongTagCount++;
+
+        stopAnimateColors();
+        icon.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.tag_false));
+
+        text_title.setText(getString(R.string.message_wrong_tag));
+        text_summary.setVisibility(View.INVISIBLE);
+        //Toast.makeText(MainActivity.this, getString(R.string.message_wrong_tag), Toast.LENGTH_SHORT).show();
+
+        icon.postDelayed(new Runnable() {
+            @Override
+            public void run()
+            {
+                scan_locked = false;
+                text_title.setText(getString(R.string.action_scantag));
+                text_summary.setVisibility(View.VISIBLE);
+                icon.setColorFilter(null);
+                animateColors();
+            }
+        }, getResources().getInteger(R.integer.wrong_tag_delay_ms));
     }
 
     @Override
@@ -156,36 +364,48 @@ public class MainActivity extends AppCompatActivity
         super.onNewIntent(intent);
 
         byte[] tagID = intent.getByteArrayExtra(NfcAdapter.EXTRA_ID);
-        if (tagID != null)
+        if (tagID != null && !scan_locked)
         {
             Log.d(TAG, "onNewIntent: nfcTag: " + Arrays.toString(tagID));
-            if (AddonSettings.loadPrefAnyTag(MainActivity.this) || nfcTagID == null || Arrays.equals(tagID, nfcTagID))
+            if (vibrate != null) {
+                vibrate.vibrate(getResources().getInteger(R.integer.scan_tag_vibrate_ms));
+            }
+
+            if (AddonSettings.loadPrefAnyTag(MainActivity.this) || alarmID == null || nfcTagID == null || Arrays.equals(tagID, nfcTagID))
             {
-                Log.i(TAG, "onNewIntent: nfcTag: tag scanned! " + Arrays.toString(nfcTagID));
-                if (nfcTagID == null || wrongTagCount >= AddonSettings.loadPrefWrongTagLimit(MainActivity.this))
+                Log.i(TAG, "onNewIntent: nfcTag: tag scanned! " + Arrays.toString(nfcTagID) + " .. wrongTagCount: " + wrongTagCount);
+                if (nfcTagID == null)
                 {
-                    Log.i(TAG, "onNewIntent: nfcTag: null tag, updating to " + Arrays.toString(nfcTagID));
+                    Log.i(TAG, "onNewIntent: nfcTag: null tag, initializing to " + Arrays.toString(nfcTagID));
                     AddonSettings.savePrefDismissTag(MainActivity.this, tagID);
                 }
-                onTagScanned();
+                onTagScanned(tagID);
 
             } else {
                 Log.w(TAG, "onNewIntent: nfcTag: wrong tag! " + Arrays.toString(tagID) + ", expected " + Arrays.toString(nfcTagID));
-                onWrongTag();
+                if (wrongTagCount >= AddonSettings.loadPrefWrongTagLimit(MainActivity.this))
+                {
+                    Log.w(TAG, "onNewIntent: nfcTag: repeated wrong tag, updating to " + Arrays.toString(nfcTagID));
+                    AddonSettings.savePrefDismissTag(MainActivity.this, tagID);
+                    onTagScanned(tagID);
+                } else {
+                    onWrongTag(tagID);
+                }
             }
         }
     }
 
-    protected void onTagScanned()
+    protected void checkVersion()
     {
-        setResult(RESULT_OK, new Intent().setData(AlarmHelper.getAlarmUri(alarmID)));
-        finish();
-    }
-
-    protected void onWrongTag()
-    {
-        wrongTagCount++;
-        Toast.makeText(MainActivity.this, getString(R.string.message_wrong_tag), Toast.LENGTH_SHORT).show();
+        if (!SuntimesInfo.checkVersion(this, suntimesInfo))
+        {
+            View view = getWindow().getDecorView().findViewById(android.R.id.content);
+            if (!suntimesInfo.hasPermission && suntimesInfo.isInstalled) {
+                Messages.showPermissionDeniedMessage(this, view);
+            } else {
+                Messages.showMissingDependencyMessage(this, view);
+            }
+        }
     }
 
     protected void showHelp()
@@ -220,6 +440,49 @@ public class MainActivity extends AppCompatActivity
             //}
         }
         return dialog;
+    }
+
+    private Object animationObj;
+    private void animateColors()
+    {
+        int startColor = ContextCompat.getColor(MainActivity.this, R.color.tag_scan_start);
+        int endColor = ContextCompat.getColor(MainActivity.this, R.color.tag_scan_end);
+        int duration = getResources().getInteger(R.integer.anim_scan_duration);
+        animateColors(startColor, endColor, duration, new AccelerateDecelerateInterpolator(MainActivity.this, null));
+    }
+    private void animateColors(int startColor, int endColor, long duration, @Nullable TimeInterpolator interpolator)
+    {
+        if (icon != null)
+        {
+            @SuppressLint("RestrictedApi")
+            ValueAnimator animation = ValueAnimator.ofObject(new ArgbEvaluator(), startColor, endColor);
+            animationObj = animation;
+            animation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
+            {
+                @Override
+                public void onAnimationUpdate(ValueAnimator animator)
+                {
+                    int animatedValue = (int) animator.getAnimatedValue();
+                    icon.setColorFilter(animatedValue);
+                }
+            });
+
+            animation.setRepeatCount(ValueAnimator.INFINITE);
+            animation.setRepeatMode(ValueAnimator.REVERSE);
+
+            if (interpolator != null) {
+                animation.setInterpolator(interpolator);
+            }
+            animation.setDuration(duration);
+            animation.start();
+        }
+    }
+    private void stopAnimateColors()
+    {
+        ValueAnimator animation = (ValueAnimator)animationObj;
+        if (animation != null) {
+            animation.removeAllUpdateListeners();
+        }
     }
 
 }
