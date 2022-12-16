@@ -24,9 +24,15 @@
         <item>@string/help_addon</item>
         <item>@string/help_configuration</item>
     </string-array>
-    <string name="help_addon"><![CDATA[This addon for Suntimes Alarms dismisses alarms by scanning an NFC tag.]]></string>
-    <string name="help_configuration"><![CDATA[<h4>Configuration</h4>Any tag may be used to dismiss the alarm on first use. That tag will be required for subsequent uses.<br/>
-    <br/>The tag may be reassigned by scanning a different tag at least 5 times.
+    <string name="help_addon"><![CDATA[An add-on for Suntimes Alarms that dismisses alarms using an NFC tag.]]></string>
+    <string name="help_configuration"><![CDATA[<h4>Configuration</h4>
+    Open <b>Suntimes Alarms</b> and configure the alarm\'s <b>On Dismiss</b> challenge to <b>Scan NFC Tag</b>.
+    <br/><br/>
+    Any NFC tag may be used on first use, and that tag will be required for future alarms.
+    <br/><br/>
+    The NFC tag may be reassigned during an active alarm by scanning another tag at least 5 times.
+    <br/><br/>
+    The activity runs in configuration mode when started from the launcher; scanning a tag will (re)assign it for future use.
     ]]></string>
 
     <string name="dismiss_challenge_title">Scan NFC Tag</string>
