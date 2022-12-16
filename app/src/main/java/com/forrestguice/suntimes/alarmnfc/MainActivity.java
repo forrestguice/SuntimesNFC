@@ -20,17 +20,23 @@ package com.forrestguice.suntimes.alarmnfc;
 
 import android.app.PendingIntent;
 import android.content.ContentUris;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
 import android.nfc.NfcAdapter;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.forrestguice.suntimes.addon.LocaleHelper;
+import com.forrestguice.suntimes.addon.SuntimesInfo;
 import com.forrestguice.suntimes.alarm.AlarmHelper;
 
 import java.util.Arrays;
@@ -38,11 +44,23 @@ import java.util.Arrays;
 public class MainActivity extends AppCompatActivity
 {
     public static final String TAG = "AlarmNFC";
+    public static final String DIALOG_HELP = "helpDialog";
+    public static final String DIALOG_ABOUT = "aboutDialog";
 
     private NfcAdapter nfcAdapter;
     private long alarmID = -1;
     private byte[] nfcTagID = null;
     private int wrongTagCount = 0;
+
+    protected SuntimesInfo suntimesInfo = null;
+
+    @Override
+    protected void attachBaseContext(Context context)
+    {
+        suntimesInfo = SuntimesInfo.queryInfo(context);    // obtain Suntimes version info
+        super.attachBaseContext( (suntimesInfo != null && suntimesInfo.appLocale != null) ?    // override the locale
+                LocaleHelper.loadLocale(context, suntimesInfo.appLocale) : context );
+    }
 
     public void onSaveInstanceState( Bundle outState )
     {
@@ -81,6 +99,32 @@ public class MainActivity extends AppCompatActivity
 
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         nfcTagID = AddonSettings.loadPrefDismissTag(this);
+        initViews(this);
+    }
+
+    protected void initViews(Context context)
+    {
+        FloatingActionButton helpButton = (FloatingActionButton) findViewById(R.id.helpButton);
+        if (helpButton != null)
+        {
+            helpButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showHelp();
+                }
+            });
+        }
+
+        FloatingActionButton aboutButton = (FloatingActionButton) findViewById(R.id.aboutButton);
+        if (aboutButton != null)
+        {
+            aboutButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showAbout();
+                }
+            });
+        }
     }
 
     @Override
@@ -146,12 +190,36 @@ public class MainActivity extends AppCompatActivity
 
     protected void showHelp()
     {
-        // TODO
+        HelpDialog dialog = new HelpDialog();
+        //if (suntimesInfo != null && suntimesInfo.appTheme != null) {
+        //    dialog.setTheme(getThemeResID(suntimesInfo.appTheme));
+       // }
+
+        String[] help = getResources().getStringArray(R.array.help_topics);
+        String helpContent = help[0];
+        for (int i=1; i<help.length; i++) {
+            helpContent = getString(R.string.format_help, helpContent, help[i]);
+        }
+        dialog.setContent(helpContent + "<br/>");
+        dialog.show(getSupportFragmentManager(), DIALOG_HELP);
     }
 
     protected void showAbout()
     {
-        // TODO
+        AboutDialog dialog = MainActivity.createAboutDialog(suntimesInfo);
+        dialog.show(getSupportFragmentManager(), DIALOG_ABOUT);
+    }
+
+    public static AboutDialog createAboutDialog(@Nullable SuntimesInfo suntimesInfo)
+    {
+        AboutDialog dialog = new AboutDialog();
+        if (suntimesInfo != null) {
+            dialog.setVersion(suntimesInfo);
+            //if (suntimesInfo.appTheme != null) {
+            //    dialog.setTheme(getThemeResID(suntimesInfo.appTheme));
+            //}
+        }
+        return dialog;
     }
 
 }

@@ -19,6 +19,19 @@
     <string name="app_changelog_url">https://github.com/forrestguice/TODO/blob/master/CHANGELOG.md</string>   <!-- url only (no formatting) -->   <!-- TODO -->
     <string name="app_commit_url">https://github.com/forrestguice/TODO/commit/</string>   <!-- url only (no formatting) -->  <!-- TODO -->
 
+    <string name="format_help"><![CDATA[%s<br/><br/>%s]]></string>
+    <string-array name="help_topics">      <!-- in order of appearance -->
+        <item>@string/help_addon</item>
+        <item>@string/help_configuration</item>
+    </string-array>
+    <string name="help_addon"><![CDATA[This addon for Suntimes Alarms dismisses alarms by scanning an NFC tag.]]></string>
+    <string name="help_configuration"><![CDATA[<h4>Configuration</h4>Any tag may be used to dismiss the alarm on first use. That tag will be required for subsequent uses.<br/>
+    <br/>The tag may be reassigned by scanning a different tag at least 5 times.
+    ]]></string>
+
+
     <string name="dismiss_challenge_title">Scan NFC Tag</string>
     <string name="message_wrong_tag">Wrong tag!</string>
+
+
 </resources>
