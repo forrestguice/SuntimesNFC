@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.forrestguice.suntimes.alarmnfc">
+
+    <uses-permission android:name="suntimes.permission.READ_CALCULATOR" />
+
+    <queries>
+        <package android:name="com.forrestguice.suntimeswidget" />    <!-- package visibility api 30+ -->
+    </queries>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AlarmNFC">
+
+        <activity android:name=".MainActivity"
+            android:exported="true">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <meta-data android:name="SuntimesDismissChallengeTitle" android:value="@string/dismiss_challenge_title" />
+            <meta-data android:name="SuntimesDismissChallengeID" android:value="100" />
+            <intent-filter>
+                <action android:name="suntimes.action.DISMISS_CHALLENGE" />
+                <category android:name="suntimes.SUNTIMES_ADDON" />
+            </intent-filter>
+
+        </activity>
+
+    </application>
+
+</manifest>

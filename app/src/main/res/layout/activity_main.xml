@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout android:orientation="vertical"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintRight_toRightOf="parent">
+
+        <ImageView android:id="@+id/icon"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:src="@drawable/ic_action_suntimes_huge"
+            android:layout_margin="16dp"/>
+
+        <TextView
+            android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center"
+            android:text="@string/dismiss_challenge_title" />
+
+    </LinearLayout>
+
+    <LinearLayout android:orientation="vertical"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="32dp">
+
+        <android.support.design.widget.FloatingActionButton android:id="@+id/helpButton"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:clickable="true" android:focusable="true"
+            app:srcCompat="@drawable/ic_noon_dark" />
+
+        <android.support.design.widget.FloatingActionButton android:id="@+id/aboutButton"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            android:clickable="true" android:focusable="true"
+            app:srcCompat="@drawable/ic_noon_dark" />
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

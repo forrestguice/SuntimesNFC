@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Suntimes Alarms NFC</string>
+    <string name="app_desc">An NFC Addon for Suntimes Alarms.</string>
+    <string name="app_legal1"><![CDATA[
+        <b>Source Code:</b><br />
+        Copyright &#169 2022 Forrest Guice <br />
+        Source code available under GPLv3.
+    ]]></string>
+    <string name="app_version"><![CDATA[<b>Version:</b>]]> %s</string>
+    <string name="app_provider_version"><![CDATA[<b>Suntimes:</b>]]> %s</string>
+
+    <string name="app_support_url"><![CDATA[
+        <b>Support:</b> visit the
+        <a href="https://github.com/forrestguice/TODO/issues">issue tracker</a> to submit a request.
+    ]]></string>    <!-- formatted link -->   <!-- TODO -->
+    <string name="app_source_url"><![CDATA[
+        <a href="https://github.com/forrestguice/IntervalMidpoints/">github.com/forrestguice/TODO/</a>
+    ]]></string>    <!-- formatted link -->   <!-- TODO -->
+    <string name="app_changelog_url">https://github.com/forrestguice/TODO/blob/master/CHANGELOG.md</string>   <!-- url only (no formatting) -->   <!-- TODO -->
+    <string name="app_commit_url">https://github.com/forrestguice/TODO/commit/</string>   <!-- url only (no formatting) -->  <!-- TODO -->
+
+    <string name="dismiss_challenge_title">Scan NFC Tag</string>
+    <string name="message_wrong_tag">Wrong tag!</string>
+</resources>
