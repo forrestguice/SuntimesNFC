@@ -3,10 +3,8 @@
     package="com.forrestguice.suntimes.alarmnfc">
 
     <uses-permission android:name="suntimes.permission.READ_CALCULATOR" />
-
-    <queries>
-        <package android:name="com.forrestguice.suntimeswidget" />    <!-- package visibility api 30+ -->
-    </queries>
+    <uses-permission android:name="android.permission.NFC" />
+    <uses-feature android:name="android.hardware.nfc" android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -34,5 +32,9 @@
         </activity>
 
     </application>
+
+    <queries>
+        <package android:name="com.forrestguice.suntimeswidget" />    <!-- package visibility api 30+ -->
+    </queries>
 
 </manifest>
