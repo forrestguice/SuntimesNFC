@@ -5,6 +5,9 @@
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryDark">@color/purple_700</item>
         <item name="colorAccent">@color/teal_200</item>
-        <!-- Customize your theme here. -->
+
+        <item name="icActionHelp">@drawable/ic_baseline_help_24_light</item>
+        <item name="icActionAbout">@drawable/ic_baseline_info_24_light</item>
+
     </style>
 </resources>
