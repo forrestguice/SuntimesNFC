@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="anim_scan_duration">1000</integer>
+
+    <integer name="scan_tag_vibrate_ms">500</integer>
+    <integer name="wrong_tag_delay_ms">3000</integer>
+    <integer name="right_tag_delay_ms">750</integer>
+    <integer name="save_tag_delay_ms">4000</integer>
+</resources>
