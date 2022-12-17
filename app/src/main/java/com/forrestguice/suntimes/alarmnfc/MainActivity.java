@@ -350,16 +350,20 @@ public class MainActivity extends AppCompatActivity
         icon.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.tag_false));
 
         text_title.setText(getString(R.string.label_wrong_tag));
-        text_summary.setVisibility(View.INVISIBLE);
-        //Toast.makeText(MainActivity.this, getString(R.string.message_wrong_tag), Toast.LENGTH_SHORT).show();
 
-        icon.postDelayed(new Runnable() {
+        int wrongTagLimit = AddonSettings.loadPrefWrongTagLimit(MainActivity.this);
+        int numRetries = (wrongTagLimit - wrongTagCount) + 1;
+        String retriesDisplay = getResources().getQuantityString(R.plurals.scanNumMoreTimes, numRetries, numRetries);
+        text_summary.setText(getString(R.string.summary_wrong_tag, retriesDisplay));
+
+        icon.postDelayed(new Runnable()
+        {
             @Override
             public void run()
             {
                 scan_locked = false;
                 text_title.setText(getString(R.string.action_scantag));
-                text_summary.setVisibility(View.VISIBLE);
+                text_summary.setText("");
                 icon.setColorFilter(null);
                 animateColors();
             }
