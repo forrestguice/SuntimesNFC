@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent" android:layout_height="match_parent"
     tools:context=".MainActivity">
 
@@ -49,25 +49,25 @@
         app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="8dp">
 
-        <android.support.design.widget.FloatingActionButton android:id="@+id/snoozeButton"
+        <com.google.android.material.floatingactionbutton.FloatingActionButton android:id="@+id/snoozeButton"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:layout_margin="4dp" android:visibility="visible"
             android:clickable="true" android:focusable="true"
             app:srcCompat="@drawable/ic_noon_dark" />
 
-        <android.support.design.widget.FloatingActionButton android:id="@+id/dismissButton"
+        <com.google.android.material.floatingactionbutton.FloatingActionButton android:id="@+id/dismissButton"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:layout_margin="4dp" android:visibility="visible"
             android:clickable="true" android:focusable="true"
             app:srcCompat="@drawable/ic_noon_dark" />
 
-        <android.support.design.widget.FloatingActionButton android:id="@+id/helpButton" android:visibility="gone"
+        <com.google.android.material.floatingactionbutton.FloatingActionButton android:id="@+id/helpButton" android:visibility="gone"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:layout_margin="4dp"
             android:clickable="true" android:focusable="true"
             app:srcCompat="@drawable/ic_baseline_help_24" />
 
-        <android.support.design.widget.FloatingActionButton android:id="@+id/aboutButton" android:visibility="gone"
+        <com.google.android.material.floatingactionbutton.FloatingActionButton android:id="@+id/aboutButton" android:visibility="gone"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:layout_margin="4dp"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
@@ -91,4 +91,4 @@
 
     </LinearLayout>
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
