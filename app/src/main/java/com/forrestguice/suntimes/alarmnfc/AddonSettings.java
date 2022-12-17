@@ -18,11 +18,16 @@
 
 package com.forrestguice.suntimes.alarmnfc;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatDelegate;
 import android.util.Base64;
+
+import com.forrestguice.suntimes.addon.SuntimesInfo;
 
 public class AddonSettings
 {
@@ -60,6 +65,28 @@ public class AddonSettings
         SharedPreferences.Editor prefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
         prefs.putString(PREF_KEY_TAG_DISMISS, Base64.encodeToString(tagID, Base64.NO_WRAP));
         prefs.apply();
+    }
+
+
+    public static int getThemeResID(@NonNull String themeName)
+    {
+        return themeName.startsWith(SuntimesInfo.THEME_SYSTEM) ? R.style.Theme_AlarmNFC_System
+                : themeName.startsWith(SuntimesInfo.THEME_LIGHT) ? R.style.Theme_AlarmNFC_Light
+                : themeName.startsWith(SuntimesInfo.THEME_DARK) ? R.style.Theme_AlarmNFC_Dark
+                : R.style.Theme_AlarmNFC_Dark;
+    }
+
+    public static int setTheme(Activity activity, int themeResID)
+    {
+        activity.setTheme(themeResID);
+        if (themeResID == R.style.Theme_AlarmNFC_System) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+        } else if (themeResID == R.style.Theme_AlarmNFC_Light) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        } else if (themeResID == R.style.Theme_AlarmNFC_Dark) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }
+        return themeResID;
     }
 
 }

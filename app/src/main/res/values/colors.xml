@@ -2,22 +2,34 @@
 <resources>
 
     <!-- night overrideable -->
+    <color name="colorPrimary">@color/colorPrimary_light</color>
+    <color name="colorPrimaryDark">@color/colorPrimaryDark_light</color>
+    <color name="colorAccent">@color/colorAccent_light</color>
+
     <color name="tag_true">@color/tag_true_light</color>
     <color name="tag_false">@color/tag_false_light</color>
     <color name="tag_scan_start">@color/tag_scan_start_light</color>
     <color name="tag_scan_end">@color/tag_scan_end_light</color>
 
     <!-- light colors -->
+    <color name="colorPrimary_light">@color/dialog_alt_light</color>
+    <color name="colorPrimaryDark_light">@color/purple_700</color>
+    <color name="colorAccent_light">@color/teal_200</color>
+
     <color name="tag_scan_start_light">#FF018786</color>
     <color name="tag_scan_end_light">#FF6200EE</color>
-    <color name="tag_true_light">#FF018786</color>
-    <color name="tag_false_light">#FF6200EE</color>
+    <color name="tag_true_light">#AAEB5B</color>
+    <color name="tag_false_light">#FF4800</color>
 
     <!-- dark colors -->
+    <color name="colorPrimary_dark">@color/dialog_alt_dark</color>
+    <color name="colorPrimaryDark_dark">@color/purple_700</color>
+    <color name="colorAccent_dark">@color/teal_200</color>
+
     <color name="tag_scan_start_dark">#FF03DAC5</color>
     <color name="tag_scan_end_dark">#FFBB86FC</color>
-    <color name="tag_true_dark">#FF03DAC5</color>
-    <color name="tag_false_dark">#FFBB86FC</color>
+    <color name="tag_true_dark">#AAEB5B</color>
+    <color name="tag_false_dark">#FF4800</color>
 
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>

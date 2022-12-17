@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="colorPrimary">@color/colorPrimary_dark</color>
+    <color name="colorPrimaryDark">@color/colorPrimaryDark_dark</color>
+    <color name="colorAccent">@color/colorAccent_dark</color>
+
     <color name="tag_true">@color/tag_true_dark</color>
     <color name="tag_false">@color/tag_false_dark</color>
     <color name="tag_scan_start">@color/tag_scan_start_dark</color>

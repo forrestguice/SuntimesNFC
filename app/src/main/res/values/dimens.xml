@@ -5,5 +5,5 @@
     <integer name="scan_tag_vibrate_ms">500</integer>
     <integer name="wrong_tag_delay_ms">3000</integer>
     <integer name="right_tag_delay_ms">750</integer>
-    <integer name="save_tag_delay_ms">4000</integer>
+    <integer name="save_tag_delay_ms">2000</integer>
 </resources>
