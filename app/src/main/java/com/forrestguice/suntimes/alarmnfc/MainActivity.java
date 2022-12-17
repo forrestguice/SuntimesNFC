@@ -116,6 +116,9 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        if (suntimesInfo.appTheme != null) {    // override the theme
+            AddonSettings.setTheme(this, AddonSettings.getThemeResID(suntimesInfo.appTheme));
+        }
         setContentView(R.layout.activity_main);
         setResult(RESULT_CANCELED);
 
@@ -149,6 +152,11 @@ public class MainActivity extends AppCompatActivity
             }
         }
 
+        View bottomBar = findViewById(R.id.bottombar);
+        if (bottomBar != null) {
+            bottomBar.setVisibility(alarmID == null ? View.VISIBLE : View.GONE);
+        }
+
         icon = (ImageView) findViewById(R.id.icon);
         if (icon != null)
         {
@@ -158,7 +166,7 @@ public class MainActivity extends AppCompatActivity
 
         text_title = (TextView) findViewById(R.id.text_title);
         if (text_title != null) {
-            text_title.setText(context.getString(nfcSupported() ? R.string.action_scantag : R.string.message_not_supported));
+            text_title.setText(context.getString(nfcSupported() ? R.string.action_scantag : R.string.label_not_supported));
         }
 
         text_summary = (TextView) findViewById(R.id.text_summary);
@@ -305,12 +313,12 @@ public class MainActivity extends AppCompatActivity
         icon.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.tag_true));
 
         if (alarmID != null) {
-            text_title.setText(getString(R.string.message_right_tag));
+            text_title.setText(getString(R.string.label_right_tag));
             text_summary.setVisibility(View.INVISIBLE);
 
         } else {
             AddonSettings.savePrefDismissTag(MainActivity.this, tagID);
-            text_title.setText(getString(R.string.message_saved_tag));
+            text_title.setText(getString(R.string.label_saved_tag));
             text_summary.setText(Arrays.toString(tagID));
         }
 
@@ -341,7 +349,7 @@ public class MainActivity extends AppCompatActivity
         stopAnimateColors();
         icon.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.tag_false));
 
-        text_title.setText(getString(R.string.message_wrong_tag));
+        text_title.setText(getString(R.string.label_wrong_tag));
         text_summary.setVisibility(View.INVISIBLE);
         //Toast.makeText(MainActivity.this, getString(R.string.message_wrong_tag), Toast.LENGTH_SHORT).show();
 

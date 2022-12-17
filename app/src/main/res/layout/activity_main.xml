@@ -76,4 +76,19 @@
 
     </LinearLayout>
 
+    <LinearLayout android:id="@+id/bottombar"
+        android:layout_width="match_parent" android:layout_height="32dp"
+        android:orientation="horizontal" android:background="?attr/colorPrimary"
+        android:layout_gravity="bottom" android:gravity="center_vertical|end"
+        app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView  android:textStyle="bold" android:textSize="?attr/text_size_tiny"
+            android:layout_marginTop="8dp" android:layout_marginBottom="8dp"
+            android:layout_marginRight="12dp" android:layout_marginLeft="12dp"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="@string/label_configuration_mode" />
+
+    </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>
