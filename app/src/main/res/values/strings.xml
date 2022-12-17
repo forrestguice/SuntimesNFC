@@ -40,10 +40,10 @@
     <string name="action_scantag">Scan Tag</string>
     <string name="summary_scantag">Place the device near NFC Tag.</string>
 
-    <string name="message_saved_tag">Tag Assigned</string>
-    <string name="message_right_tag">Alarm Dismissed</string>
-    <string name="message_wrong_tag">Wrong tag!</string>
-    <string name="message_not_supported">Not Supported</string>
+    <string name="label_saved_tag">Tag Assigned</string>
+    <string name="label_right_tag">Alarm Dismissed</string>
+    <string name="label_wrong_tag">Wrong tag!</string>
+    <string name="label_not_supported">Not Supported</string>
     <string name="summary_not_supported">Failed to detect NFC support.</string>
 
     <string name="action_dismiss">Dismiss</string>
