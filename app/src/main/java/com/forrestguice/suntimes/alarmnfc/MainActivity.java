@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity
         {
             actionBar.setDisplayHomeAsUpEnabled(true);
             if (alarmID == null) {
-                actionBar.setHomeAsUpIndicator(R.mipmap.ic_launcher);
+                actionBar.setHomeAsUpIndicator(R.mipmap.ic_launcher_round);
             }
         }
 
