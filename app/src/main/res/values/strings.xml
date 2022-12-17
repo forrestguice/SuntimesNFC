@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Suntimes NFC Alarms</string>
+    <string name="app_name">Suntimes NFCAlarms</string>
     <string name="app_desc">An NFC Addon for Suntimes Alarms.</string>
     <string name="app_legal1"><![CDATA[
         <b>Source Code:</b><br />
