@@ -4,6 +4,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="icActionSettings">@drawable/ic_baseline_settings_applications_24</item>
         <item name="icActionHelp">@drawable/ic_baseline_help_24</item>
         <item name="icActionAbout">@drawable/ic_baseline_info_24</item>
 
