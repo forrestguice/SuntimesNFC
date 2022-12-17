@@ -8,6 +8,8 @@
         <item name="icActionHelp">@drawable/ic_baseline_help_24</item>
         <item name="icActionAbout">@drawable/ic_baseline_info_24</item>
 
+        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.AlarmNFC.BottomSheetDialog</item>
+
         <item name="text_size_tiny">@dimen/text_size_tiny</item>
         <item name="text_size_xsmall">@dimen/text_size_xsmall</item>
         <item name="text_size_small">@dimen/text_size_small</item>

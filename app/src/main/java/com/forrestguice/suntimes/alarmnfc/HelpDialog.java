@@ -41,10 +41,10 @@ public class HelpDialog extends BottomSheetDialogFragment
     public static final String KEY_HELPTEXT = "helpText";
     public static final String KEY_DIALOGTHEME = "themeResID";
 
-    //private int themeResID = R.style.AppTheme_Dark;
-    //public void setTheme(int themeResID) {
-    //    this.themeResID = themeResID;
-    //}
+    private int themeResID = R.style.Theme_AlarmNFC_Dark;
+    public void setTheme(int themeResID) {
+        this.themeResID = themeResID;
+    }
 
     private TextView txtView;
     private CharSequence rawContent = "";
@@ -66,8 +66,8 @@ public class HelpDialog extends BottomSheetDialogFragment
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup parent, @Nullable Bundle savedState)
     {
-        //themeResID = ((savedState != null) ? savedState.getInt(KEY_DIALOGTHEME) : themeResID);
-        ContextThemeWrapper contextWrapper = new ContextThemeWrapper(getActivity(), getTheme());    // hack: contextWrapper required because base theme is not properly applied
+        themeResID = ((savedState != null) ? savedState.getInt(KEY_DIALOGTHEME) : themeResID);
+        ContextThemeWrapper contextWrapper = new ContextThemeWrapper(getActivity(), themeResID);    // hack: contextWrapper required because base theme is not properly applied
         View dialogContent = inflater.cloneInContext(contextWrapper).inflate(R.layout.dialog_help, parent, false);
         txtView = (TextView) dialogContent.findViewById(R.id.help_content);
         if (savedState != null) {
@@ -102,7 +102,7 @@ public class HelpDialog extends BottomSheetDialogFragment
     @Override
     public void onSaveInstanceState( @NonNull Bundle out ) {
         out.putCharSequence(KEY_HELPTEXT, rawContent);
-        //out.putInt(KEY_DIALOGTHEME, themeResID);
+        out.putInt(KEY_DIALOGTHEME, themeResID);
         super.onSaveInstanceState(out);
     }
 

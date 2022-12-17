@@ -419,9 +419,9 @@ public class MainActivity extends AppCompatActivity
     protected void showHelp()
     {
         HelpDialog dialog = new HelpDialog();
-        //if (suntimesInfo != null && suntimesInfo.appTheme != null) {
-        //    dialog.setTheme(getThemeResID(suntimesInfo.appTheme));
-       // }
+        if (suntimesInfo != null && suntimesInfo.appTheme != null) {
+            dialog.setTheme(AddonSettings.getThemeResID(suntimesInfo.appTheme));
+        }
 
         String[] help = getResources().getStringArray(R.array.help_topics);
         String helpContent = help[0];
@@ -443,9 +443,9 @@ public class MainActivity extends AppCompatActivity
         AboutDialog dialog = new AboutDialog();
         if (suntimesInfo != null) {
             dialog.setVersion(suntimesInfo);
-            //if (suntimesInfo.appTheme != null) {
-            //    dialog.setTheme(getThemeResID(suntimesInfo.appTheme));
-            //}
+            if (suntimesInfo.appTheme != null) {
+                dialog.setTheme(AddonSettings.getThemeResID(suntimesInfo.appTheme));
+            }
         }
         return dialog;
     }

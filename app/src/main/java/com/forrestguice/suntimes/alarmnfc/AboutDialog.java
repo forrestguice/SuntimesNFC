@@ -45,10 +45,10 @@ public class AboutDialog extends BottomSheetDialogFragment
     public static final String KEY_PROVIDERVERSION = "paramProviderVersion";
     public static final String KEY_PROVIDER_PERMISSIONDENIED = "paramProviderDenied";
 
-    //private int themeResID = R.style.AppTheme_Dark;
-    //public void setTheme(int themeResID) {
-    //    this.themeResID = themeResID;
-    //}
+    private int themeResID = R.style.Theme_AlarmNFC_Dark;
+    public void setTheme(int themeResID) {
+        this.themeResID = themeResID;
+    }
 
     private String appVersion = null;
     private Integer providerVersion = null;
@@ -66,7 +66,7 @@ public class AboutDialog extends BottomSheetDialogFragment
         restoreInstanceState(savedState);
 
         @SuppressLint("RestrictedApi")
-        ContextThemeWrapper contextWrapper = new ContextThemeWrapper(getActivity(), getTheme());    // hack: contextWrapper required because base theme is not properly applied
+        ContextThemeWrapper contextWrapper = new ContextThemeWrapper(getActivity(), themeResID);    // hack: contextWrapper required because base theme is not properly applied
         View dialogContent = inflater.cloneInContext(contextWrapper).inflate(R.layout.dialog_about, parent, false);
 
         TextView version = (TextView)dialogContent.findViewById(R.id.txt_about_version);
@@ -114,9 +114,9 @@ public class AboutDialog extends BottomSheetDialogFragment
     {
         if (savedState != null)
         {
-            //if (savedState.containsKey(KEY_DIALOGTHEME)) {
-            //    themeResID = savedState.getInt(KEY_DIALOGTHEME);
-            //}
+            if (savedState.containsKey(KEY_DIALOGTHEME)) {
+                themeResID = savedState.getInt(KEY_DIALOGTHEME);
+            }
             if (savedState.containsKey(KEY_PROVIDER_PERMISSIONDENIED)) {
                 providerPermissionsDenied = savedState.getBoolean(KEY_PROVIDER_PERMISSIONDENIED);
             }
@@ -132,7 +132,7 @@ public class AboutDialog extends BottomSheetDialogFragment
     @Override
     public void onSaveInstanceState( @NonNull Bundle out )
     {
-        //out.putInt(KEY_DIALOGTHEME, themeResID);
+        out.putInt(KEY_DIALOGTHEME, themeResID);
         out.putBoolean(KEY_PROVIDER_PERMISSIONDENIED, providerPermissionsDenied);
         if (appVersion != null) {
             out.putString(KEY_APPVERSION, appVersion);
