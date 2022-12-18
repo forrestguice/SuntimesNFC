@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <attr name="icActionDismiss" format="reference" />
+    <attr name="icActionSnooze" format="reference" />
     <attr name="icActionSettings" format="reference" />
     <attr name="icActionHelp" format="reference" />
     <attr name="icActionAbout" format="reference" />

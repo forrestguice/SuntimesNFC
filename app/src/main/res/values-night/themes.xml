@@ -1,9 +1,15 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
+    <!--
+        System Theme (Night Mode)
+    -->
     <style name="Theme.SuntimesNFC.System" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="icActionSnooze">@drawable/ic_baseline_snooze_24</item>
+        <item name="icActionDismiss">@drawable/ic_baseline_cancel_24</item>
         <item name="icActionSettings">@drawable/ic_baseline_settings_applications_24</item>
         <item name="icActionHelp">@drawable/ic_baseline_help_24</item>
         <item name="icActionAbout">@drawable/ic_baseline_info_24</item>

@@ -1,9 +1,15 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
+    <!--
+        System Theme
+    -->
     <style name="Theme.SuntimesNFC.System" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="icActionSnooze">@drawable/ic_baseline_snooze_24_light</item>
+        <item name="icActionDismiss">@drawable/ic_baseline_cancel_24_light</item>
         <item name="icActionSettings">@drawable/ic_baseline_settings_applications_24_light</item>
         <item name="icActionHelp">@drawable/ic_baseline_help_24_light</item>
         <item name="icActionAbout">@drawable/ic_baseline_info_24_light</item>
@@ -20,10 +26,16 @@
         <item name="text_size_enormous">@dimen/text_size_enormous</item>
     </style>
 
+    <!--
+        Dark Theme
+    -->
     <style name="Theme.SuntimesNFC.Dark" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="colorPrimary">@color/colorPrimary_dark</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark_dark</item>
         <item name="colorAccent">@color/colorAccent_dark</item>
+
+        <item name="icActionSnooze">@drawable/ic_baseline_snooze_24</item>
+        <item name="icActionDismiss">@drawable/ic_baseline_cancel_24</item>
         <item name="icActionSettings">@drawable/ic_baseline_settings_applications_24</item>
         <item name="icActionHelp">@drawable/ic_baseline_help_24</item>
         <item name="icActionAbout">@drawable/ic_baseline_info_24</item>
@@ -40,10 +52,16 @@
         <item name="text_size_enormous">@dimen/text_size_enormous</item>
     </style>
 
+    <!--
+        Light Theme
+    -->
     <style name="Theme.SuntimesNFC.Light" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimary_light</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark_light</item>
         <item name="colorAccent">@color/colorAccent_light</item>
+
+        <item name="icActionSnooze">@drawable/ic_baseline_snooze_24_light</item>
+        <item name="icActionDismiss">@drawable/ic_baseline_cancel_24_light</item>
         <item name="icActionSettings">@drawable/ic_baseline_settings_applications_24_light</item>
         <item name="icActionHelp">@drawable/ic_baseline_help_24_light</item>
         <item name="icActionAbout">@drawable/ic_baseline_info_24_light</item>
