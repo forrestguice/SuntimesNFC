@@ -31,6 +31,8 @@ import android.nfc.NfcAdapter;
 import android.os.Vibrator;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.forrestguice.suntimes.addon.AddonHelper;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import androidx.vectordrawable.graphics.drawable.ArgbEvaluator;
 import androidx.core.content.ContextCompat;
@@ -246,6 +248,8 @@ public class MainActivity extends AppCompatActivity
             case android.R.id.home:
                 if (alarmID != null) {
                     cancelDismiss();
+                } else {
+                    AddonHelper.startSuntimesAlarmsActivity(MainActivity.this);
                 }
                 return true;
 
