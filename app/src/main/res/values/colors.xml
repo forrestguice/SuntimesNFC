@@ -6,6 +6,7 @@
     <color name="colorPrimaryDark">@color/colorPrimaryDark_light</color>
     <color name="colorAccent">@color/colorAccent_light</color>
 
+    <color name="tag_disabled">@color/tag_disabled_light</color>
     <color name="tag_true">@color/tag_true_light</color>
     <color name="tag_false">@color/tag_false_light</color>
     <color name="tag_scan_start">@color/tag_scan_start_light</color>
@@ -13,9 +14,10 @@
 
     <!-- light colors -->
     <color name="colorPrimary_light">@color/dialog_alt_light</color>
-    <color name="colorPrimaryDark_light">@color/purple_700</color>
-    <color name="colorAccent_light">@color/teal_200</color>
+    <color name="colorPrimaryDark_light">@color/dialog_light</color>
+    <color name="colorAccent_light">@color/teal_700</color>
 
+    <color name="tag_disabled_light">@color/grey_500</color>
     <color name="tag_scan_start_light">#FF018786</color>
     <color name="tag_scan_end_light">#FF6200EE</color>
     <color name="tag_true_light">#AAEB5B</color>
@@ -23,9 +25,10 @@
 
     <!-- dark colors -->
     <color name="colorPrimary_dark">@color/dialog_alt_dark</color>
-    <color name="colorPrimaryDark_dark">@color/purple_700</color>
+    <color name="colorPrimaryDark_dark">@color/dialog_dark</color>
     <color name="colorAccent_dark">@color/teal_200</color>
 
+    <color name="tag_disabled_dark">@color/grey_500</color>
     <color name="tag_scan_start_dark">#FF03DAC5</color>
     <color name="tag_scan_end_dark">#FFBB86FC</color>
     <color name="tag_true_dark">#AAEB5B</color>
