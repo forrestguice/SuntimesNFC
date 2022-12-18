@@ -178,10 +178,14 @@ public class MainActivity extends AppCompatActivity
         if (dismissButton != null)
         {
             dismissButton.setOnClickListener(onDismissClicked);
-            dismissButton.setEnabled(nfcSupported());
-            if (nfcSupported()) {
+            if (nfcSupported() || alarmID == null)
+            {
                 dismissButton.hide();
-            } else dismissButton.show();
+                dismissButton.setEnabled(false);
+            } else {
+                dismissButton.show();
+                dismissButton.setEnabled(true);
+            }
         }
 
         FloatingActionButton snoozeButton = (FloatingActionButton) findViewById(R.id.snoozeButton);
@@ -457,10 +461,19 @@ public class MainActivity extends AppCompatActivity
     private Object animationObj;
     private void animateColors()
     {
-        int startColor = ContextCompat.getColor(MainActivity.this, R.color.tag_scan_start);
-        int endColor = ContextCompat.getColor(MainActivity.this, R.color.tag_scan_end);
-        int duration = getResources().getInteger(R.integer.anim_scan_duration);
-        animateColors(startColor, endColor, duration, new AccelerateDecelerateInterpolator(MainActivity.this, null));
+        if (nfcSupported())
+        {
+            int startColor = ContextCompat.getColor(MainActivity.this, R.color.tag_scan_start);
+            int endColor = ContextCompat.getColor(MainActivity.this, R.color.tag_scan_end);
+            int duration = getResources().getInteger(R.integer.anim_scan_duration);
+            animateColors(startColor, endColor, duration, new AccelerateDecelerateInterpolator(MainActivity.this, null));
+
+        } else {
+            int disabledColor = ContextCompat.getColor(MainActivity.this, R.color.tag_disabled);
+            if (icon != null) {
+                icon.setColorFilter(disabledColor);
+            }
+        }
     }
     private void animateColors(int startColor, int endColor, long duration, @Nullable TimeInterpolator interpolator)
     {
