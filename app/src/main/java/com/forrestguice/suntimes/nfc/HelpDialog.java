@@ -17,7 +17,7 @@
     along with Suntimes.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package com.forrestguice.suntimes.alarmnfc;
+package com.forrestguice.suntimes.nfc;
 
 import android.content.DialogInterface;
 import android.os.Build;
@@ -41,7 +41,7 @@ public class HelpDialog extends BottomSheetDialogFragment
     public static final String KEY_HELPTEXT = "helpText";
     public static final String KEY_DIALOGTHEME = "themeResID";
 
-    private int themeResID = R.style.Theme_AlarmNFC_Dark;
+    private int themeResID = R.style.Theme_SuntimesNFC_Dark;
     public void setTheme(int themeResID) {
         this.themeResID = themeResID;
     }

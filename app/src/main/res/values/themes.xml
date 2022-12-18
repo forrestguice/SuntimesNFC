@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="Theme.AlarmNFC.System" parent="Theme.AppCompat.DayNight.DarkActionBar">
+    <style name="Theme.SuntimesNFC.System" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -20,7 +20,7 @@
         <item name="text_size_enormous">@dimen/text_size_enormous</item>
     </style>
 
-    <style name="Theme.AlarmNFC.Dark" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+    <style name="Theme.SuntimesNFC.Dark" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="colorPrimary">@color/colorPrimary_dark</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark_dark</item>
         <item name="colorAccent">@color/colorAccent_dark</item>
@@ -40,7 +40,7 @@
         <item name="text_size_enormous">@dimen/text_size_enormous</item>
     </style>
 
-    <style name="Theme.AlarmNFC.Light" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="Theme.SuntimesNFC.Light" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimary_light</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark_light</item>
         <item name="colorAccent">@color/colorAccent_light</item>

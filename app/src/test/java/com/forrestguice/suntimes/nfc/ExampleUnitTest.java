@@ -1,4 +1,4 @@
-package com.forrestguice.suntimes.alarmnfc;
+package com.forrestguice.suntimes.nfc;
 
 import org.junit.Test;
 

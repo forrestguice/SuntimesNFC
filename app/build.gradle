@@ -7,7 +7,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.forrestguice.suntimes.alarmnfc"
+        applicationId "com.forrestguice.suntimes.nfc"
         minSdkVersion 16
         targetSdkVersion 31
         versionCode 1

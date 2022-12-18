@@ -16,7 +16,7 @@
     along with Suntimes.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package com.forrestguice.suntimes.alarmnfc;
+package com.forrestguice.suntimes.nfc;
 
 import android.app.Activity;
 import android.content.Context;
@@ -70,20 +70,20 @@ public class AddonSettings
 
     public static int getThemeResID(@NonNull String themeName)
     {
-        return themeName.startsWith(SuntimesInfo.THEME_SYSTEM) ? R.style.Theme_AlarmNFC_System
-                : themeName.startsWith(SuntimesInfo.THEME_LIGHT) ? R.style.Theme_AlarmNFC_Light
-                : themeName.startsWith(SuntimesInfo.THEME_DARK) ? R.style.Theme_AlarmNFC_Dark
-                : R.style.Theme_AlarmNFC_Dark;
+        return themeName.startsWith(SuntimesInfo.THEME_SYSTEM) ? R.style.Theme_SuntimesNFC_System
+                : themeName.startsWith(SuntimesInfo.THEME_LIGHT) ? R.style.Theme_SuntimesNFC_Light
+                : themeName.startsWith(SuntimesInfo.THEME_DARK) ? R.style.Theme_SuntimesNFC_Dark
+                : R.style.Theme_SuntimesNFC_Dark;
     }
 
     public static int setTheme(Activity activity, int themeResID)
     {
         activity.setTheme(themeResID);
-        if (themeResID == R.style.Theme_AlarmNFC_System) {
+        if (themeResID == R.style.Theme_SuntimesNFC_System) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-        } else if (themeResID == R.style.Theme_AlarmNFC_Light) {
+        } else if (themeResID == R.style.Theme_SuntimesNFC_Light) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        } else if (themeResID == R.style.Theme_AlarmNFC_Dark) {
+        } else if (themeResID == R.style.Theme_SuntimesNFC_Dark) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         }
         return themeResID;

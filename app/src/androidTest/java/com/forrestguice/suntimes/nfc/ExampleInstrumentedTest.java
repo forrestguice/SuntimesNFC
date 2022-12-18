@@ -1,4 +1,4 @@
-package com.forrestguice.suntimes.alarmnfc;
+package com.forrestguice.suntimes.nfc;
 
 import android.content.Context;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -20,6 +20,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.forrestguice.suntimes.alarmnfc", appContext.getPackageName());
+        assertEquals("com.forrestguice.suntimes.nfc", appContext.getPackageName());
     }
 }

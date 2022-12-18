@@ -16,7 +16,7 @@
     along with Suntimes.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package com.forrestguice.suntimes.alarmnfc;
+package com.forrestguice.suntimes.nfc;
 
 import android.animation.TimeInterpolator;
 import android.animation.ValueAnimator;
