@@ -11,20 +11,22 @@
 
     <string name="app_support_url"><![CDATA[
         <b>Support:</b> visit the
-        <a href="https://github.com/forrestguice/TODO/issues">issue tracker</a> to submit a request.
-    ]]></string>    <!-- formatted link -->   <!-- TODO -->
+        <a href="https://github.com/forrestguice/SuntimesNFC/issues">issue tracker</a> to submit a request.
+    ]]></string>    <!-- formatted link -->
     <string name="app_source_url"><![CDATA[
-        <a href="https://github.com/forrestguice/IntervalMidpoints/">github.com/forrestguice/TODO/</a>
-    ]]></string>    <!-- formatted link -->   <!-- TODO -->
-    <string name="app_changelog_url">https://github.com/forrestguice/TODO/blob/master/CHANGELOG.md</string>   <!-- url only (no formatting) -->   <!-- TODO -->
-    <string name="app_commit_url">https://github.com/forrestguice/TODO/commit/</string>   <!-- url only (no formatting) -->  <!-- TODO -->
+        <a href="https://github.com/forrestguice/SuntimesNFC/">github.com/forrestguice/SuntimesNFC/</a>
+    ]]></string>    <!-- formatted link -->
+    <string name="app_changelog_url">https://github.com/forrestguice/SuntimesNFC/blob/master/CHANGELOG.md</string>   <!-- url only (no formatting) -->
+    <string name="app_commit_url">https://github.com/forrestguice/SuntimesNFC/commit/</string>   <!-- url only (no formatting) -->
 
     <string name="format_help"><![CDATA[%s<br/><br/>%s]]></string>
     <string-array name="help_topics">      <!-- in order of appearance -->
         <item>@string/help_addon</item>
         <item>@string/help_configuration</item>
     </string-array>
-    <string name="help_addon"><![CDATA[An add-on for Suntimes Alarms that dismisses alarms using an NFC tag.]]></string>
+    <string name="help_addon"><![CDATA[
+    An add-on for Suntimes Alarms that dismisses alarms using an NFC tag.
+    ]]></string>
     <string name="help_configuration"><![CDATA[<h4>Configuration</h4>
     Open <b>Suntimes Alarms</b> and configure the alarm\'s <b>On Dismiss</b> challenge to <b>Scan NFC Tag</b>.
     <br/><br/>
@@ -36,6 +38,8 @@
     ]]></string>
 
     <string name="dismiss_challenge_title">Scan NFC Tag</string>
+
+    <string name="label_configuration_mode">Configuration Mode</string>
 
     <string name="action_scantag">Scan Tag</string>
     <string name="summary_scantag">Place the device near NFC Tag.</string>
@@ -51,15 +55,11 @@
     </plurals>
 
     <string name="label_not_supported">Not Supported</string>
-    <string name="summary_not_supported">Failed to detect NFC support.</string>
+    <string name="summary_not_supported">Failed to detect NFC hardware.</string>
 
     <string name="action_dismiss">Dismiss</string>
     <string name="action_snooze">Snooze</string>
     <string name="action_help">Help</string>
     <string name="action_about">About</string>
-
-
-
-    <string name="label_configuration_mode">Configuration Mode</string>
 
 </resources>
