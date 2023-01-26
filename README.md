@@ -2,6 +2,7 @@
 An NFC Addon for Suntimes Alarms. It depends on [Suntimes v0.15.0](https://f-droid.org/en/packages/com.forrestguice.suntimeswidget/) or later.
 
 [![GitHub release](https://img.shields.io/github/release/forrestguice/SuntimesNFC.svg)](https://github.com/forrestguice/SuntimesNFC/releases)
+[![Android CI](https://github.com/forrestguice/SuntimesNFC/workflows/Android%20CI/badge.svg?branch=main)](https://github.com/forrestguice/SuntimesNFC/actions?query=branch%3Amain)
 
 * [Donations](#donations)
 * [Bug Reports](#bug-reports)
