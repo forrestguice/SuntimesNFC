@@ -10,7 +10,7 @@ An NFC add-on for Suntimes Alarms. It depends on [Suntimes v0.15.0](https://f-dr
 * [Legal Stuff](#legal-stuff)
 
 Features:
-* dismiss alarms (Suntimes Alarms) using an NFC tag.
+* dismiss alarms using an NFC tag.
 
 <img alt="screenshot1" src='fastlane/metadata/android/en-US/images/phoneScreenshots/1.png' width="280px" />
 
