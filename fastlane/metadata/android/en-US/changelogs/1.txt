@@ -1,0 +1,1 @@
+- initial release; dismiss alarms using an NFC tag.

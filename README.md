@@ -1,5 +1,5 @@
 # Suntimes NFC
-An NFC Addon for Suntimes Alarms. It depends on [Suntimes v0.15.0](https://f-droid.org/en/packages/com.forrestguice.suntimeswidget/) or later.
+An NFC add-on for Suntimes Alarms. It depends on [Suntimes v0.15.0](https://f-droid.org/en/packages/com.forrestguice.suntimeswidget/) or later.
 
 [![GitHub release](https://img.shields.io/github/release/forrestguice/SuntimesNFC.svg)](https://github.com/forrestguice/SuntimesNFC/releases)
 [![Android CI](https://github.com/forrestguice/SuntimesNFC/workflows/Android%20CI/badge.svg?branch=main)](https://github.com/forrestguice/SuntimesNFC/actions?query=branch%3Amain)
@@ -10,9 +10,9 @@ An NFC Addon for Suntimes Alarms. It depends on [Suntimes v0.15.0](https://f-dro
 * [Legal Stuff](#legal-stuff)
 
 Features:
-* dismiss alarms (Suntimes Alarms) using an NFC tag.
+* dismiss alarms using an NFC tag.
 
-<img alt="screenshot1" src='fastlane/metadata/android/en-US/images/phoneScreenshots/1.png' width="280px" /> <img alt="screenshot2" src='fastlane/metadata/android/en-US/images/phoneScreenshots/2.png' width="280px" />
+<img alt="screenshot1" src='fastlane/metadata/android/en-US/images/phoneScreenshots/1.png' width="280px" />
 
 ## Donations ##
 Do you find value in this software? Please pay as you feel.
@@ -28,9 +28,9 @@ When reporting a bug please be detailed as possible. What did you expect the app
 ## Privacy and Permissions ##
 Suntimes NFC does not collect, store, or transmit personal user data. It contains no advertising, no analytics, no trackers, and no unnecessary permissions.
 
-`android.permission.NFC` is used to access NFC hardware.
+`android.permission.NFC` is required to access NFC hardware.
 
-`android.permission.VIBRATE` is used to provide user feedback after detecting a tag.
+`android.permission.VIBRATE` is used to provide feedback after scanning a tag.
 
 __Suntimes NFC is an add-on for Suntimes.__ It uses the `suntimes.permission.READ_CALCULATOR` permission in order to access data provided by this app. https://github.com/forrestguice/SuntimesWidget/wiki/Privacy
 

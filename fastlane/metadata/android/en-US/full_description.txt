@@ -1,0 +1,8 @@
+Dismiss alarms using an NFC tag.
+
+This add-on for Suntimes Alarms. It depends on <a href="https://f-droid.org/en/packages/com.forrestguice.suntimeswidget/">Suntimes v0.15.0</a> or later.
+
+The following permissions are required:
+* <small><u>android.permission.NFC</u></small> is required to access NFC hardware.
+* <small><u>android.permission.VIBRATE</u></small> is used to provide feedback after scanning a tag.
+* <small><u>suntimes.permission.READ_CALCULATOR</u></small> is required by Suntimes.
