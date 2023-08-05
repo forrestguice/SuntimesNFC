@@ -23,8 +23,7 @@ import android.content.Context;
 
 import com.forrestguice.suntimes.addon.AppThemeInfo;
 import com.forrestguice.suntimes.addon.SuntimesInfo;
-
-import org.jetbrains.annotations.Nullable;
+import com.forrestguice.suntimes.annotation.Nullable;
 
 import androidx.appcompat.app.AppCompatDelegate;
 
