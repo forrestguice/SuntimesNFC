@@ -33,6 +33,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.forrestguice.suntimes.addon.AddonHelper;
+import com.forrestguice.suntimes.addon.AppThemeInfo;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import androidx.vectordrawable.graphics.drawable.ArgbEvaluator;
 import androidx.core.content.ContextCompat;
@@ -81,6 +82,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void attachBaseContext(Context context)
     {
+        AppThemeInfo.setFactory(new AppThemes());
         suntimesInfo = SuntimesInfo.queryInfo(context);    // obtain Suntimes version info
         super.attachBaseContext( (suntimesInfo != null && suntimesInfo.appLocale != null) ?    // override the locale
                 LocaleHelper.loadLocale(context, suntimesInfo.appLocale) : context );
@@ -119,8 +121,9 @@ public class MainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         if (suntimesInfo.appTheme != null) {    // override the theme
-            AddonSettings.setTheme(this, AddonSettings.getThemeResID(suntimesInfo.appTheme));
+            AppThemeInfo.setTheme(this, suntimesInfo);
         }
+
         setContentView(R.layout.activity_main);
         setResult(RESULT_CANCELED);
 
@@ -432,7 +435,7 @@ public class MainActivity extends AppCompatActivity
     {
         HelpDialog dialog = new HelpDialog();
         if (suntimesInfo != null && suntimesInfo.appTheme != null) {
-            dialog.setTheme(AddonSettings.getThemeResID(suntimesInfo.appTheme));
+            dialog.setTheme(AppThemeInfo.themePrefToStyleId(MainActivity.this, AppThemeInfo.themeNameFromInfo(suntimesInfo)));
         }
 
         String[] help = getResources().getStringArray(R.array.help_topics);
@@ -446,17 +449,17 @@ public class MainActivity extends AppCompatActivity
 
     protected void showAbout()
     {
-        AboutDialog dialog = MainActivity.createAboutDialog(suntimesInfo);
+        AboutDialog dialog = MainActivity.createAboutDialog(MainActivity.this, suntimesInfo);
         dialog.show(getSupportFragmentManager(), DIALOG_ABOUT);
     }
 
-    public static AboutDialog createAboutDialog(@Nullable SuntimesInfo suntimesInfo)
+    public static AboutDialog createAboutDialog(Context context, @Nullable SuntimesInfo suntimesInfo)
     {
         AboutDialog dialog = new AboutDialog();
         if (suntimesInfo != null) {
             dialog.setVersion(suntimesInfo);
             if (suntimesInfo.appTheme != null) {
-                dialog.setTheme(AddonSettings.getThemeResID(suntimesInfo.appTheme));
+                dialog.setTheme(AppThemeInfo.themePrefToStyleId(context, AppThemeInfo.themeNameFromInfo(suntimesInfo)));
             }
         }
         return dialog;

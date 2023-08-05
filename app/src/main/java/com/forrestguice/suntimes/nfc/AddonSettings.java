@@ -66,27 +66,5 @@ public class AddonSettings
         prefs.putString(PREF_KEY_TAG_DISMISS, Base64.encodeToString(tagID, Base64.NO_WRAP));
         prefs.apply();
     }
-
-
-    public static int getThemeResID(@NonNull String themeName)
-    {
-        return themeName.startsWith(SuntimesInfo.THEME_SYSTEM) ? R.style.Theme_SuntimesNFC_System
-                : themeName.startsWith(SuntimesInfo.THEME_LIGHT) ? R.style.Theme_SuntimesNFC_Light
-                : themeName.startsWith(SuntimesInfo.THEME_DARK) ? R.style.Theme_SuntimesNFC_Dark
-                : R.style.Theme_SuntimesNFC_Dark;
-    }
-
-    public static int setTheme(Activity activity, int themeResID)
-    {
-        activity.setTheme(themeResID);
-        if (themeResID == R.style.Theme_SuntimesNFC_System) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-        } else if (themeResID == R.style.Theme_SuntimesNFC_Light) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        } else if (themeResID == R.style.Theme_SuntimesNFC_Dark) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        }
-        return themeResID;
-    }
-
+    
 }
