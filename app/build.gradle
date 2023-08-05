@@ -3,14 +3,14 @@ plugins {
 }
 
 android {
-    compileSdkVersion 31
-    buildToolsVersion "30.0.3"
+    compileSdkVersion 33
+    buildToolsVersion "33.0.0"
 
     defaultConfig {
         applicationId "com.forrestguice.suntimes.nfc"
         minSdkVersion 16
         //noinspection OldTargetApi
-        targetSdkVersion 31
+        targetSdkVersion 33
         versionCode 1
         versionName "0.1.0"
         buildConfigField "String", "GIT_HASH", "\"${getGitHash()}\""
@@ -38,9 +38,9 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'com.github.forrestguice:SuntimesAddon:v0.4.0'
 
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }
 
 def getGitHash()
