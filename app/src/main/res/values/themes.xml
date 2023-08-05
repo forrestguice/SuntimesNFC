@@ -73,17 +73,10 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="colorSurface">@color/dialog_light</item>
+        <item name="colorSurface">@color/surface_bg_contrast</item>
         <item name="android:textColor">@android:color/primary_text_light</item>
-
-        <item name="icActionSnooze">@drawable/ic_baseline_snooze_24_light</item>
-        <item name="icActionDismiss">@drawable/ic_baseline_cancel_24_light</item>
-        <item name="icActionSettings">@drawable/ic_baseline_settings_applications_24_light</item>
-        <item name="icActionHelp">@drawable/ic_baseline_help_24_light</item>
-        <item name="icActionAbout">@drawable/ic_baseline_info_24_light</item>
-
-        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.AlarmNFC.BottomSheetDialog</item>
-    </style>  <!-- TODO -->
+        <item name="android:windowBackground">@color/window_bg_contrast</item>
+    </style>
     <style name="Theme.SuntimesNFC.System1.Small" parent="Theme.SuntimesNFC.System1">
         <item name="text_size_tiny">@dimen/smalltext_size_tiny</item>
         <item name="text_size_xsmall">@dimen/smalltext_size_xsmall</item>
@@ -129,6 +122,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark_dark</item>
         <item name="colorAccent">@color/colorAccent_dark</item>
         <item name="colorSurface">@color/dialog_dark</item>
+        <item name="android:textColor">@android:color/primary_text_dark</item>
 
         <item name="icActionSnooze">@drawable/ic_baseline_snooze_24</item>
         <item name="icActionDismiss">@drawable/ic_baseline_cancel_24</item>
@@ -193,16 +187,10 @@
         <item name="colorPrimary">@color/colorPrimary_dark</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark_dark</item>
         <item name="colorAccent">@color/colorAccent_dark</item>
-        <item name="colorSurface">@color/dialog_dark</item>
-
-        <item name="icActionSnooze">@drawable/ic_baseline_snooze_24</item>
-        <item name="icActionDismiss">@drawable/ic_baseline_cancel_24</item>
-        <item name="icActionSettings">@drawable/ic_baseline_settings_applications_24</item>
-        <item name="icActionHelp">@drawable/ic_baseline_help_24</item>
-        <item name="icActionAbout">@drawable/ic_baseline_info_24</item>
-
-        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.AlarmNFC.BottomSheetDialog</item>
-    </style>  <!-- TODO -->
+        <item name="colorSurface">@color/surface_bg_contrast_dark</item>
+        <item name="android:textColor">@android:color/primary_text_dark</item>
+        <item name="android:windowBackground">@color/window_bg_contrast_dark</item>
+    </style>
     <style name="Theme.SuntimesNFC.Dark1.Small" parent="Theme.SuntimesNFC.Dark1">
         <item name="text_size_tiny">@dimen/smalltext_size_tiny</item>
         <item name="text_size_xsmall">@dimen/smalltext_size_xsmall</item>
@@ -248,6 +236,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark_light</item>
         <item name="colorAccent">@color/colorAccent_light</item>
         <item name="colorSurface">@color/dialog_light</item>
+        <item name="android:textColor">@android:color/primary_text_light</item>
 
         <item name="icActionSnooze">@drawable/ic_baseline_snooze_24_light</item>
         <item name="icActionDismiss">@drawable/ic_baseline_cancel_24_light</item>
@@ -312,16 +301,10 @@
         <item name="colorPrimary">@color/colorPrimary_light</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark_light</item>
         <item name="colorAccent">@color/colorAccent_light</item>
-        <item name="colorSurface">@color/dialog_light</item>
-
-        <item name="icActionSnooze">@drawable/ic_baseline_snooze_24_light</item>
-        <item name="icActionDismiss">@drawable/ic_baseline_cancel_24_light</item>
-        <item name="icActionSettings">@drawable/ic_baseline_settings_applications_24_light</item>
-        <item name="icActionHelp">@drawable/ic_baseline_help_24_light</item>
-        <item name="icActionAbout">@drawable/ic_baseline_info_24_light</item>
-
-        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.AlarmNFC.BottomSheetDialog</item>
-    </style>  <!-- TODO -->
+        <item name="colorSurface">@color/surface_bg_contrast_light</item>
+        <item name="android:textColor">@android:color/primary_text_light</item>
+        <item name="android:windowBackground">@color/window_bg_contrast_light</item>
+    </style>
     <style name="Theme.SuntimesNFC.Light1.Small" parent="Theme.SuntimesNFC.Light1">
         <item name="text_size_tiny">@dimen/smalltext_size_tiny</item>
         <item name="text_size_xsmall">@dimen/smalltext_size_xsmall</item>

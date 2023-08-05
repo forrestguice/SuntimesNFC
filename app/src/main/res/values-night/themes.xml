@@ -34,19 +34,12 @@
          System Theme (Contrast)
     -->
     <style name="Theme.SuntimesNFC.System1" parent="Theme.SuntimesNFC.System">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="colorSurface">@color/dialog_dark</item>
+        <item name="colorPrimary">@color/colorPrimary_contrast</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark_contrast</item>
+        <item name="colorAccent">@color/colorAccent_contrast</item>
+        <item name="colorSurface">@color/surface_bg_contrast</item>
         <item name="android:textColor">@android:color/primary_text_dark</item>
-
-        <item name="icActionSnooze">@drawable/ic_baseline_snooze_24_light</item>
-        <item name="icActionDismiss">@drawable/ic_baseline_cancel_24_light</item>
-        <item name="icActionSettings">@drawable/ic_baseline_settings_applications_24_light</item>
-        <item name="icActionHelp">@drawable/ic_baseline_help_24_light</item>
-        <item name="icActionAbout">@drawable/ic_baseline_info_24_light</item>
-
-        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.AlarmNFC.BottomSheetDialog</item>
-    </style>  <!-- TODO -->
+        <item name="android:windowBackground">@color/window_bg_contrast</item>
+    </style>
 
 </resources>
