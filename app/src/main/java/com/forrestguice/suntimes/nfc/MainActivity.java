@@ -35,6 +35,8 @@ import androidx.annotation.Nullable;
 import com.forrestguice.suntimes.addon.AddonHelper;
 import com.forrestguice.suntimes.addon.AppThemeInfo;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import androidx.appcompat.widget.Toolbar;
 import androidx.vectordrawable.graphics.drawable.ArgbEvaluator;
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.ActionBar;
@@ -148,6 +150,9 @@ public class MainActivity extends AppCompatActivity
 
     protected void initViews(Context context)
     {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null)
         {
