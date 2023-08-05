@@ -243,26 +243,26 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
-        switch (item.getItemId())
+        int itemId = item.getItemId();
+        if (itemId == R.id.action_help)
         {
-            case R.id.action_help:
-                showHelp();
-                return true;
+            showHelp();
+            return true;
 
-            case R.id.action_about:
-                showAbout();
-                return true;
+        } else if (itemId == R.id.action_about) {
+            showAbout();
+            return true;
 
-            case android.R.id.home:
-                if (alarmID != null) {
-                    cancelDismiss();
-                } else {
-                    AddonHelper.startSuntimesAlarmsActivity(MainActivity.this);
-                }
-                return true;
+        } else if (itemId == android.R.id.home) {
+            if (alarmID != null) {
+                cancelDismiss();
+            } else {
+                AddonHelper.startSuntimesAlarmsActivity(MainActivity.this);
+            }
+            return true;
 
-            default:
-                return super.onOptionsItemSelected(item);
+        } else {
+            return super.onOptionsItemSelected(item);
         }
     }
 
