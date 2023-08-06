@@ -36,7 +36,7 @@ __Suntimes NFC is an add-on for Suntimes.__ It uses the `suntimes.permission.REA
 
 
 ## Legal Stuff
-Copyright (C) 2022 **Forrest Guice**
+Copyright (C) 2022-2023 **Forrest Guice**
 ```
 Suntimes NFC is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
