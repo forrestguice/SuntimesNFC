@@ -25,7 +25,14 @@ jobs:
       uses: gradle/wrapper-validation-action@v1.0.4
     - name: Make gradlew executable
       run: chmod +x ./gradlew
-      
+
+    - name: Copy `d8` to `dx` (needed for older AGP version)
+      run: |
+          cd $ANDROID_HOME/build-tools/33.0.1
+          mv d8 dx
+          cd lib
+          mv d8.jar dx.jar
+        
     - uses: actions/cache@v2
       with:
         path: |
