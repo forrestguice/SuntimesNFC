@@ -1,0 +1,1 @@
+- adds support for "text size" and "high contrast" app themes.
