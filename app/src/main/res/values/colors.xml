@@ -63,6 +63,4 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <!-- others -->
-    <color name="ic_launcher_background">#242424</color>
 </resources>

@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.forrestguice.suntimes.nfc">
 
-    <uses-permission android:name="suntimes.permission.READ_CALCULATOR" />
+    <uses-permission android:name="${suntimesPermissionRoot}.permission.READ_CALCULATOR" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.NFC" />
     <uses-feature android:name="android.hardware.nfc" android:required="true" />
@@ -36,7 +36,7 @@
     </application>
 
     <queries>
-        <package android:name="com.forrestguice.suntimeswidget" />    <!-- package visibility api 30+ -->
+        <package android:name="${suntimesApplicationId}" />    <!-- package visibility api 30+ -->
     </queries>
 
 </manifest>
