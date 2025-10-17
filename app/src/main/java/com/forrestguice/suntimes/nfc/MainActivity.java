@@ -28,6 +28,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
 import android.nfc.NfcAdapter;
+import android.os.Build;
 import android.os.Vibrator;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -310,7 +311,11 @@ public class MainActivity extends AppCompatActivity
         {
             Intent intent = new Intent(this, this.getClass());
             intent.addFlags(Intent.FLAG_RECEIVER_REPLACE_PENDING | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            PendingIntent pendingIntent = PendingIntent.getActivity(this, REQUEST_NFC_DISPATCH, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+            int pendingIntentFlags = PendingIntent.FLAG_CANCEL_CURRENT;
+            if (Build.VERSION.SDK_INT >= 31) {
+                pendingIntentFlags |= PendingIntent.FLAG_MUTABLE;    // NFC functionality requires MUTABLE (grants ability to alter intent semantics)
+            }
+            PendingIntent pendingIntent = PendingIntent.getActivity(this, REQUEST_NFC_DISPATCH, intent, pendingIntentFlags);
             nfcAdapter.enableForegroundDispatch(this, pendingIntent, new IntentFilter[] {}, null);
         }
     }
