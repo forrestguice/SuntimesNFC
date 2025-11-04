@@ -2,6 +2,8 @@
 
 ### v0.1.2 (2025-11-04)
 * fixes bug where NFC tags cannot be scanned on Android 12+ (#3).
+* adds themed app icon (Android 13+).
+* adds app backup rules (Android 12+).
 * updates `agp` (7.2.2), `gradle-wrapper` (7.6.6), and `SuntimesAddon` (0.4.3) dependencies.
 
 ### v0.1.1 (2023-08-05)

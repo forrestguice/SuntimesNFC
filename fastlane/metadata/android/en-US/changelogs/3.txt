@@ -1,1 +1,2 @@
 - fixes bug where NFC tags cannot be scanned on Android 12+.
+- adds themed app icon (Android 13+).
