@@ -108,8 +108,11 @@ public class HelpDialog extends BottomSheetDialogFragment
 
     public static Spanned fromHtml(String htmlString )
     {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+        if (Build.VERSION.SDK_INT >= 24) {
             return Html.fromHtml(htmlString, Html.FROM_HTML_MODE_LEGACY);
-        else return Html.fromHtml(htmlString);
+        } else {
+            //noinspection deprecation
+            return Html.fromHtml(htmlString);
+        }
     }
 }
