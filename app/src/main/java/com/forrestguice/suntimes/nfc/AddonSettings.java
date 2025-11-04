@@ -20,7 +20,7 @@ package com.forrestguice.suntimes.nfc;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
+import androidx.preference.PreferenceManager;
 import androidx.annotation.Nullable;
 import android.util.Base64;
 
