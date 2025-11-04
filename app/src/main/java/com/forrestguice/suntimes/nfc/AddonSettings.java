@@ -18,16 +18,11 @@
 
 package com.forrestguice.suntimes.nfc;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatDelegate;
 import android.util.Base64;
-
-import com.forrestguice.suntimes.addon.SuntimesInfo;
 
 public class AddonSettings
 {
