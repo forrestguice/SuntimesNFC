@@ -1,9 +1,10 @@
 package com.forrestguice.suntimes.nfc;
 
-import android.app.Instrumentation;
-import android.content.ContentUris;
+import android.app.Activity;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.nfc.NfcAdapter;
 
@@ -23,8 +24,6 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static com.forrestguice.suntimes.nfc.TestRobot.getContext;
 import static com.forrestguice.suntimes.nfc.TestRobot.setAnimationsEnabled;
-import static com.forrestguice.suntimes.nfc.espresso.ViewAssertionHelper.assertChecked;
-import static com.forrestguice.suntimes.nfc.espresso.ViewAssertionHelper.assertEnabled;
 import static com.forrestguice.suntimes.nfc.espresso.ViewAssertionHelper.assertHidden;
 import static com.forrestguice.suntimes.nfc.espresso.ViewAssertionHelper.assertShown;
 import static org.junit.Assert.assertArrayEquals;
@@ -47,37 +46,49 @@ public class MainActivityTest
         setAnimationsEnabled(true);
     }
 
+
     @Test
     public void test_mainActivity_configMode() throws Throwable
     {
-        byte[] tag0 = new byte[] { 1, 1, 1, 1 };
-
-        Context context = getContext();
-        Intent intent = new Intent(context, MainActivity.class);
+        Intent intent = new Intent(getContext(), MainActivity.class);
         activityRule.launchActivity(intent);
         assertFalse(activityRule.getActivity().isFinishing());
         assertNull(activityRule.getActivity().alarmID);
 
         MainActivity activity = activityRule.getActivity();
+        injectNFCAdapter(activityRule, createMockNfcAdapter());
+
         MainActivityRobot robot = new MainActivityRobot()
-                .assertConfigMode();
+                .assertConfigMode()
+                .assertNfcReady();
 
-        if (activity.nfcSupported())
-        {
-            robot.assertNfcScanLocked(activityRule, false)
-                    .assertNfcReady()
-                    .simulateNFC(activityRule, tag0)
-                    .assertNfcAssigned(tag0)
-                    .assertNfcScanLocked(activityRule, true);
-            assertArrayEquals(tag0, AddonSettings.loadPrefDismissTag(activity));
+        byte[] tag0 = new byte[] { 1, 1, 1, 1 };
+        robot.assertNfcScanLocked(activityRule, false)
+                .simulateNFC(activityRule, tag0)
+                .assertNfcAssigned(tag0)
+                .assertNfcScanLocked(activityRule, true);
+        assertArrayEquals(tag0, AddonSettings.loadPrefDismissTag(activity));
 
-            robot.sleep(3000)    // wait for scan to unlock
-                    .assertNfcScanLocked(activityRule, false)
-                    .assertNfcReady();
+        robot.sleep(3000)    // wait for scan to unlock
+                .assertNfcScanLocked(activityRule, false)
+                .assertNfcReady();
+    }
 
-        } else {
-            robot.assertNfcNotSupported();
-        }
+    @Test
+    public void test_mainActivity_configMode_noNFC() throws Throwable
+    {
+        Intent intent = new Intent(getContext(), MainActivity.class);
+        activityRule.launchActivity(intent);
+        assertFalse(activityRule.getActivity().isFinishing());
+        assertNull(activityRule.getActivity().alarmID);
+
+        MainActivity activity = activityRule.getActivity();
+        injectNFCAdapter(activityRule, null);
+
+        assertFalse(activity.nfcSupported());
+        new MainActivityRobot()
+                .assertConfigMode()
+                .assertNfcNotSupported();
     }
 
     @Test
@@ -93,41 +104,65 @@ public class MainActivityTest
         activityRule.launchActivity(intent);
 
         MainActivity activity = activityRule.getActivity();
+        AddonSettings.savePrefDismissTag(activity, tag0);
+        injectNFCAdapter(activityRule, createMockNfcAdapter());
+
+        assertFalse(activity.isFinishing());
+        assertEquals(alarmID0, activity.alarmID);
+        assertTrue(activity.nfcSupported());
+        MainActivityRobot robot = new MainActivityRobot()
+                .assertAlarmMode()
+                .assertNfcReady();
+
+        robot.assertNfcScanLocked(activityRule, false)
+                .simulateNFC(activityRule, tag1)    // simulate scanning wrong tag
+                .assertNfcScanLocked(activityRule, true)
+                .assertNfcWrongTag(tag1);
+
+        robot.sleep(3000)    // wait for scan to unlock
+                .assertNfcScanLocked(activityRule, false)
+                .assertNfcReady();
+
+        robot.simulateNFC(activityRule, tag0)    // simulate scanning right tag
+                .assertNfcScanLocked(activityRule, true)
+                .assertNfcRightTag(tag0)
+                .sleep(1500);
+
+        // TODO: test resultCode
+        /*long startTime = System.currentTimeMillis();
+        boolean isFinished = true;
+        while (!activity.isFinishing()) {    // wait for activity to finish
+            if (System.currentTimeMillis() - startTime > 2000) {   // fail after 2 seconds
+                isFinished = false;
+                break;
+            }
+        }
+        assertTrue("Activity should have finished", isFinished);
+        Instrumentation.ActivityResult result = activityRule.getActivityResult();
+        Intent resultData = result.getResultData();
+        assertEquals(MainActivity.RESULT_OK, result.getResultCode());                                               // the expected result...
+        assertEquals(MainActivity.RESULT_OK, resultData.getIntExtra(Intent.EXTRA_RETURN_RESULT, -9));   // should contain resultCode
+        assertEquals(alarmID0, (Long) ContentUris.parseId(resultData.getData()));                                   // and alarm URI
+        */
+    }
+
+    @Test
+    public void test_mainActivity_alarmMode_noNFC() throws Throwable
+    {
+        Long alarmID0 = 123L;
+        Intent intent = new Intent(getContext(), MainActivity.class);
+        intent.setData(Uri.parse(alarmID0 + ""));
+        activityRule.launchActivity(intent);
+
+        MainActivity activity = activityRule.getActivity();
         assertFalse(activity.isFinishing());
         assertEquals(alarmID0, activity.alarmID);
 
-        MainActivityRobot robot = new MainActivityRobot()
-                .assertAlarmMode();
-
-        if (activity.nfcSupported())
-        {
-            robot.assertNfcReady();
-            AddonSettings.savePrefDismissTag(activity, tag0);
-
-            robot.assertNfcScanLocked(activityRule, false)
-                    .simulateNFC(activityRule, tag1)    // simulate scanning wrong tag
-                    .assertNfcScanLocked(activityRule, true)
-                    .assertNfcWrongTag(tag1);
-
-            robot.sleep(3000)    // wait for scan to unlock
-                    .assertNfcScanLocked(activityRule, false)
-                    .assertNfcReady();
-
-            robot.simulateNFC(activityRule, tag0)    // simulate scanning right tag
-                    .assertNfcScanLocked(activityRule, true)
-                    .assertNfcRightTag(tag0)
-                    .sleep(1500);
-            assertTrue(activity.isFinishing());
-
-            //Instrumentation.ActivityResult result = activityRule.getActivityResult();
-            //Intent resultData = result.getResultData();
-            //assertEquals(MainActivity.RESULT_OK, result.getResultCode());
-            //assertEquals(MainActivity.RESULT_OK, resultData.getIntExtra(Intent.EXTRA_RETURN_RESULT, -9));
-            //assertEquals(alarmID0, (Long) ContentUris.parseId(resultData.getData()));
-
-        } else {
-            robot.assertNfcNotSupported();
-        }
+        injectNFCAdapter(activityRule, null);
+        assertFalse(activity.nfcSupported());
+        new MainActivityRobot()
+                .assertAlarmMode()
+                .assertNfcNotSupported();
     }
 
     @Test
@@ -248,4 +283,40 @@ public class MainActivityTest
             return this;
         }
     }
+
+    /**
+     * createMockNfcAdapter
+     */
+    protected NfcInterface createMockNfcAdapter()
+    {
+        return new NfcInterface() {
+            @Override
+            public String EXTRA_ID() {
+                return NfcAdapter.EXTRA_ID;
+            }
+
+            @Override
+            public void enableForegroundDispatch(Activity activity, PendingIntent pendingIntent, IntentFilter[] intentFilters, String[][] techlists) {
+                /* EMPTY */
+            }
+
+            @Override
+            public void disableForegroundDispatch(Activity activity) {
+                /* EMPTY */
+            }
+        };
+    }
+
+    protected void injectNFCAdapter(ActivityTestRule<MainActivity> activityRule, NfcInterface nfc) throws Throwable
+    {
+        MainActivity activity = activityRule.getActivity();
+        activityRule.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                activity.nfcAdapter = nfc;
+                activity.initViews(activity);
+            }
+        });
+    }
+
 }

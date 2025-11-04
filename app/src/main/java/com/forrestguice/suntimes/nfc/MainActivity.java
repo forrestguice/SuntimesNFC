@@ -27,7 +27,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
-import android.nfc.NfcAdapter;
 import android.os.Build;
 import android.os.Vibrator;
 import androidx.annotation.NonNull;
@@ -72,7 +71,7 @@ public class MainActivity extends AppCompatActivity
     protected SuntimesInfo suntimesInfo = null;
 
     private Vibrator vibrate;
-    private NfcAdapter nfcAdapter;
+    protected NfcInterface nfcAdapter;
 
     protected Long alarmID = null;
     private byte[] nfcTagID = null;
@@ -143,7 +142,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         vibrate = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        nfcAdapter = NfcAdapter.getDefaultAdapter(this);
+        nfcAdapter = new NfcWrapper(this);
         nfcTagID = AddonSettings.loadPrefDismissTag(this);
 
         initViews(this);
@@ -396,7 +395,7 @@ public class MainActivity extends AppCompatActivity
     {
         super.onNewIntent(intent);
 
-        byte[] tagID = intent.getByteArrayExtra(NfcAdapter.EXTRA_ID);
+        byte[] tagID = intent.getByteArrayExtra(nfcAdapter.EXTRA_ID());
         if (tagID != null && !scan_locked)
         {
             Log.d(TAG, "onNewIntent: nfcTag: " + Arrays.toString(tagID));
