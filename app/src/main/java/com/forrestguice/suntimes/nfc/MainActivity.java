@@ -74,10 +74,10 @@ public class MainActivity extends AppCompatActivity
     private Vibrator vibrate;
     private NfcAdapter nfcAdapter;
 
-    private Long alarmID = null;
+    protected Long alarmID = null;
     private byte[] nfcTagID = null;
     private int wrongTagCount = 0;
-    private boolean scan_locked = false;
+    protected boolean scan_locked = false;
 
     private ImageView icon;
     private TextView text_title, text_summary;
