@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity
                 LocaleHelper.loadLocale(context, suntimesInfo.appLocale) : context );
     }
 
-    public void onSaveInstanceState( Bundle outState )
+    public void onSaveInstanceState( @NonNull Bundle outState )
     {
         super.onSaveInstanceState(outState);
         if (alarmID != null) {
@@ -408,7 +408,7 @@ public class MainActivity extends AppCompatActivity
                 Log.i(TAG, "onNewIntent: nfcTag: tag scanned! " + Arrays.toString(nfcTagID) + " .. wrongTagCount: " + wrongTagCount);
                 if (nfcTagID == null)
                 {
-                    Log.i(TAG, "onNewIntent: nfcTag: null tag, initializing to " + Arrays.toString(nfcTagID));
+                    Log.i(TAG, "onNewIntent: nfcTag: null tag, initializing to " + Arrays.toString((byte[]) null));
                     AddonSettings.savePrefDismissTag(MainActivity.this, tagID);
                 }
                 onTagScanned(tagID);
