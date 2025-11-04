@@ -38,10 +38,10 @@ android {
             dimension "versiontype"
             applicationIdSuffix ".nightly"
             versionNameSuffix "-nightly"
-            def authorityRoot = "suntimes.intervalmidpoints.nightly"
-            manifestPlaceholders.suntimesApplicationId = "com.forrestguice.suntimeswidget"
-            manifestPlaceholders.suntimesPermissionRoot = "suntimes"
-            buildConfigField "String", "AUTHORITY_ROOT", "\"$authorityRoot\""
+            //manifestPlaceholders.suntimesApplicationId = "com.forrestguice.suntimeswidget"
+            //manifestPlaceholders.suntimesPermissionRoot = "suntimes"
+            //def authorityRoot = "suntimes.nfc.nightly"
+            //buildConfigField "String", "AUTHORITY_ROOT", "\"$authorityRoot\""
             def nightlyVersionCode = new Date().format('yyyyMMddhh') as int
             versionCode nightlyVersionCode
         }
