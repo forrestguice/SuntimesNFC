@@ -19,7 +19,10 @@
 
 package com.forrestguice.suntimes.nfc;
 
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -33,6 +36,7 @@ import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -40,13 +44,14 @@ public class HelpDialog extends BottomSheetDialogFragment
 {
     public static final String KEY_HELPTEXT = "helpText";
     public static final String KEY_DIALOGTHEME = "themeResID";
+    public static final String KEY_NEUTRALTEXT = "neutralText";
+    public static final String KEY_NEUTRALTAG = "neutralTag";
 
     private int themeResID = R.style.Theme_SuntimesNFC_Dark;
     public void setTheme(int themeResID) {
         this.themeResID = themeResID;
     }
 
-    private TextView txtView;
     private CharSequence rawContent = "";
     public CharSequence getContent() {
         return rawContent;
@@ -69,9 +74,12 @@ public class HelpDialog extends BottomSheetDialogFragment
         themeResID = ((savedState != null) ? savedState.getInt(KEY_DIALOGTHEME) : themeResID);
         ContextThemeWrapper contextWrapper = new ContextThemeWrapper(getActivity(), themeResID);    // hack: contextWrapper required because base theme is not properly applied
         View dialogContent = inflater.cloneInContext(contextWrapper).inflate(R.layout.dialog_help, parent, false);
-        txtView = (TextView) dialogContent.findViewById(R.id.help_content);
+        initViews(dialogContent);
+
         if (savedState != null) {
             rawContent = savedState.getCharSequence(KEY_HELPTEXT);
+            neutralButtonMsg = savedState.getString(KEY_NEUTRALTEXT);
+            listenerTag = savedState.getString(KEY_NEUTRALTAG);
         }
         return dialogContent;
     }
@@ -80,8 +88,30 @@ public class HelpDialog extends BottomSheetDialogFragment
     public void onResume()
     {
         super.onResume();
-        txtView.setText(getContent());
+        updateViews();
         expandSheet(getDialog());
+    }
+
+    private View buttonFrame;
+    private TextView txtView;
+    private Button neutralButton;
+    public void initViews(View dialogView)
+    {
+        txtView = (TextView) dialogView.findViewById(R.id.help_content);
+        buttonFrame = dialogView.findViewById(R.id.dialog_buttons);
+        neutralButton = (Button) dialogView.findViewById(R.id.dialog_button_neutral);
+    }
+
+    public void updateViews()
+    {
+        txtView.setText(getContent());
+        if (buttonFrame != null) {
+            buttonFrame.setVisibility(neutralButtonMsg != null ? View.VISIBLE : View.GONE);
+        }
+        if (neutralButton != null && neutralButtonMsg != null) {
+            neutralButton.setText(neutralButtonMsg);
+            neutralButton.setOnClickListener(onNeutralButtonClick);
+        }
     }
 
     private static void expandSheet(DialogInterface dialog)
@@ -103,6 +133,8 @@ public class HelpDialog extends BottomSheetDialogFragment
     public void onSaveInstanceState( @NonNull Bundle out ) {
         out.putCharSequence(KEY_HELPTEXT, rawContent);
         out.putInt(KEY_DIALOGTHEME, themeResID);
+        out.putString(KEY_NEUTRALTEXT, neutralButtonMsg);
+        out.putString(KEY_NEUTRALTAG, listenerTag);
         super.onSaveInstanceState(out);
     }
 
@@ -114,5 +146,43 @@ public class HelpDialog extends BottomSheetDialogFragment
             //noinspection deprecation
             return Html.fromHtml(htmlString);
         }
+    }
+
+    /**
+     * Show/hide the neutral button.
+     * @param msg neutral button text (null hides button, default is null)
+     */
+    public void setShowNeutralButton( String msg ) {
+        neutralButtonMsg = msg;
+    }
+    private String neutralButtonMsg = null;
+
+    private View.OnClickListener onNeutralButtonClick = null;
+    public void setNeutralButtonListener( View.OnClickListener listener, String tag )
+    {
+        onNeutralButtonClick = listener;
+        listenerTag = tag;
+    }
+
+    private String listenerTag = "";
+    public String getListenerTag() {
+        return listenerTag;
+    }
+
+    /**
+     * getOnlineHelp
+     */
+    public static View.OnClickListener getOnlineHelpClickListener(final Context context, final int helpPathID)
+    {
+        return new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v) {
+                context.startActivity(getOnlineHelpIntent(context, context.getString(helpPathID)));
+            }
+        };
+    }
+    public static Intent getOnlineHelpIntent(Context context, String helpPath) {
+        return new Intent(Intent.ACTION_VIEW, Uri.parse(context.getString(R.string.help_url) + Uri.parse(helpPath)));
     }
 }
