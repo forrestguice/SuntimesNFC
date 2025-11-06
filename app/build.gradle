@@ -42,7 +42,7 @@ android {
             //manifestPlaceholders.suntimesPermissionRoot = "suntimes"
             //def authorityRoot = "suntimes.nfc.nightly"
             //buildConfigField "String", "AUTHORITY_ROOT", "\"$authorityRoot\""
-            def nightlyVersionCode = new Date().format('yyyyMMddhh') as int
+            def nightlyVersionCode = new Date().format('yyyyMMddHH') as int
             versionCode nightlyVersionCode
         }
     }
