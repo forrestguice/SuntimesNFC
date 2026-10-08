@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_legal1"><![CDATA[
+        <b>Codice sorgente:</b><br />
+        Copyright &#169 2022-2025 Forrest Guice <br />
+        Codice sorgente disponibile sotto licenza GPLv3.
+    ]]></string>
+    <string name="app_version"><![CDATA[<b>Versione:</b>]]> %s</string>
+    <string name="app_provider_version"><![CDATA[<b>Suntimes:</b>]]> %s</string>
+    <string name="app_support_url"><![CDATA[
+        <b>Supporto:</b> visita il
+        <a href="https://github.com/forrestguice/SuntimesNFC/issues">tracker delle segnalazioni</a> per inviare una richiesta.
+    ]]></string>
+    <string name="format_help"><![CDATA[%s<br/><br/>%s]]></string>
+    <string name="help_addon"><![CDATA[
+    Un componente aggiuntivo per Suntimes Sveglie che permette di disattivare le sveglie con un tag NFC.
+    ]]></string>
+    <string name="help_configuration"><![CDATA[<h4>Configurazione</h4>
+    Apri <b>Suntimes Sveglie</b> e configura la <b>sfida di chiusura</b> della sveglia su <b>Scansiona tag NFC</b>.
+    <br/><br/>
+    Al primo utilizzo può essere usato qualsiasi tag NFC; quel tag sarà richiesto per le sveglie future.
+    <br/><br/>
+    Il tag NFC può essere riassegnato durante una sveglia attiva scansionando un altro tag almeno 5 volte.
+    <br/><br/>
+    L'attività viene avviata in modalità configurazione quando aperta dal launcher; la scansione di un tag lo (ri)assegnerà per usi futuri.
+    ]]></string>
+    <string name="dismiss_challenge_title">Scansiona tag NFC</string>
+    <string name="label_configuration_mode">Modalità di configurazione</string>
+    <string name="action_scantag">Scansiona tag</string>
+    <string name="summary_scantag">Avvicina il dispositivo al tag NFC.</string>
+    <string name="label_saved_tag">Tag assegnato</string>
+    <string name="label_right_tag">Sveglia disattivata</string>
+    <string name="label_wrong_tag">Tag errato!</string>
+    <string name="summary_wrong_tag">Scansiona almeno %s.</string>
+    <string name="label_not_supported">Non supportato</string>
+    <string name="summary_not_supported">Impossibile rilevare l\'hardware NFC.</string>
+    <string name="action_dismiss">Ignora</string>
+    <string name="action_snooze">Posponi</string>
+    <string name="action_onlineHelp">Aiuto online</string>
+    <string name="action_help">Aiuto</string>
+    <string name="action_about">A proposito</string>
+    <plurals name="scanNumMoreTimes">
+        <item quantity="one">%s altra volta</item>
+        <item quantity="other">%s altre volte</item>
+    </plurals>
+</resources>
